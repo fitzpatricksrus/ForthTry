@@ -12,18 +12,6 @@
 #include "ExitSystemWord.hpp"
 #include "CompositeWord.hpp"
 
-LoggingWord Hello("Hello");
-LoggingWord World("World");
-ExitSystemWord Done(0);
-WordReference recipeBits[3] = {
-	&Hello,
-	&World,
-	&Done
-};
-
-CompositeWord word(recipeBits);
-ThreadState thread(10, 10, &word);
-
 typedef struct SystemState {
 	ThreadState* currentThread;
 	void* memory;
@@ -42,6 +30,21 @@ typedef struct SystemState {
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+	
+	LoggingWord Hello("Hello ");
+	LoggingWord World("World\n");
+	ExitSystemWord Done(0);
+	WordReference recipeBits[3] = {
+		&Hello,
+		&World,
+		&Done
+	};
+	
+	CompositeWord word(recipeBits);
+	ThreadState thread(10, 10, &word);
+	
+	while (1) {
+		thread.next();
+	}
+	return 0;
 }

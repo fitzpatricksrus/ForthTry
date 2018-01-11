@@ -7,6 +7,8 @@
 //
 
 #include "LoggingWord.hpp"
+#include <iostream>
+
 
 LoggingWord::LoggingWord(const char* messageIn)
 : Word(), message(messageIn) {
@@ -16,6 +18,6 @@ LoggingWord::LoggingWord(const char* messageIn)
 LoggingWord::~LoggingWord() {
 }
 
-void LoggingWord::execute (ThreadState* state) {
-	printf("%s\n", message);
+void LoggingWord::execute (ThreadState* state) {	
+	std::cout << message;
 }
