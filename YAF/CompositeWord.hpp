@@ -26,7 +26,8 @@ public:
 	virtual ~CompositeWord();
 	virtual void execute (ThreadState* state);
 	
-	class ExitWord : Word {
+	class ExitWord : public Word {
+	public:
 		virtual ~ExitWord();
 		virtual void execute (ThreadState* state);
 	};

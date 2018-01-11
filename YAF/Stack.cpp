@@ -12,8 +12,8 @@
  * Runtime stack structure.
  */
 StackStructure::StackStructure(int stackSizeIn) {
-	stackData = new StackElement[stackSize];
 	stackSize = stackSizeIn;
+	stackData = new StackElement[stackSizeIn];
 	stackPos = 0;
 }
 

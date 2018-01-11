@@ -31,15 +31,38 @@ typedef struct SystemState {
 int main(int argc, const char * argv[]) {
     // insert code here...
 	
-	LoggingWord Hello("Hello ");
-	LoggingWord World("World\n");
+	LoggingWord Hello_H("H");
+	LoggingWord Hello_E("e");
+	LoggingWord Hello_L("l");
+	LoggingWord Hello_O("o");
+	LoggingWord Hello_BANG("!");
+	LoggingWord Hello_SPACE(" ");
+	LoggingWord World("World!\n");
 	ExitSystemWord Done(0);
+	CompositeWord::ExitWord exitWord;
+	WordReference BangBits[] = {
+		&Hello_BANG,
+		&Hello_BANG,
+		&exitWord
+	};
+	CompositeWord BangBangBang(BangBits);
+	WordReference HelloBits[] = {
+		&Hello_H,
+		&Hello_E,
+		&Hello_L,
+		&Hello_L,
+		&Hello_O,
+		&BangBangBang,
+		&Hello_SPACE,
+		&exitWord
+	};
+	CompositeWord Hello(HelloBits);
 	WordReference recipeBits[3] = {
 		&Hello,
 		&World,
 		&Done
 	};
-	
+
 	CompositeWord word(recipeBits);
 	ThreadState thread(10, 10, &word);
 	
