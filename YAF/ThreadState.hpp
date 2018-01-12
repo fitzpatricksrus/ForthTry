@@ -25,9 +25,9 @@ public:
 	CompositeWord rootWord;			//word being 'execute()'ed
 
 	ThreadState(int dataStackSize, int returnStackSize, WordReference startingWord);
-	virtual ~ThreadState();
+	~ThreadState();
 	
-	virtual bool run();
+	bool run();
 	void terminate();
 };
 

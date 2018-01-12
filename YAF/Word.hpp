@@ -19,9 +19,7 @@ class ThreadState;
 class Word {
 public:
 	virtual ~Word();
-	virtual void execute (ThreadState* state);
-
-	typedef Word* Reference;
+	virtual void execute(ThreadState* state);
 };
 
 typedef Word* WordReference;
