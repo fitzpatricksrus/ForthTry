@@ -22,6 +22,11 @@ int main(int argc, const char * argv[]) {
 	LoggingWord Hello_BANG("!");
 	LoggingWord Hello_SPACE(" ");
 	LoggingWord World("World!\n");
+	WordReference hBits[] = {
+		&Hello_H,
+		&CompositeWord::EXIT_WORD
+	};
+	CompositeWord justH(hBits);
 	WordReference bangBits[] = {
 		&Hello_BANG,
 		&Hello_BANG,
@@ -31,7 +36,7 @@ int main(int argc, const char * argv[]) {
 	};
 	CompositeWord bangBangBang(bangBits);
 	WordReference helloBits[] = {
-		&Hello_H,
+		&justH,
 		&Hello_E,
 		&Hello_L,
 		&Hello_L,
@@ -49,6 +54,7 @@ int main(int argc, const char * argv[]) {
 	CompositeWord helloWorldWord(recipeBits);
 	ThreadState* thread1 = new ThreadState(10, 10, &helloWorldWord);
 	ThreadState* thread2 = new ThreadState(10, 10, &bangBangBang);
+//	ThreadState* thread3 = new ThreadState(10,10,&justH);
 
 	SystemState systemState(thread1);
 	systemState.addThread(thread2);

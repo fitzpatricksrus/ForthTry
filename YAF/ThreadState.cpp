@@ -11,13 +11,14 @@
 ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
 : ip(nullptr), dataStack(dspSize), returnStack(rspSize), rootWord(2)
 {
+	// build the root word consisting of the word passed in and an exit command.
 	rootWord[0] = startingWord;
 	rootWord[1] = &CompositeWord::EXIT_WORD;
-	//this is a bit of a hack to have the rootWord set it's recipe in the IP.
-	//a side effect is that a bogus IP gets pushed onto the return
-	//stack.  We pop that off so that it's clean when the thread starts.
+	// since the root word is a CompositeWord, it will set the ip to it's
+	// recipe, that we built above, and it will also push a null ip onto the
+	// return stack which will also cleanly cause the thread to exit (via
+	// returning null from its run() method.
 	rootWord.execute(this);
-	returnStack.clear();
 }
 
 ThreadState::~ThreadState() {
