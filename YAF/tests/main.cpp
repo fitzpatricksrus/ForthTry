@@ -53,6 +53,6 @@ int main(int argc, const char * argv[]) {
 	SystemState systemState(thread1);
 	systemState.addThread(thread2);
 	
-	while (systemState.run()) {	}
+	while (thread1->run()) {	}
 	return 0;
 }
