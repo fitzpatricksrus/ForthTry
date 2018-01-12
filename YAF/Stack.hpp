@@ -57,16 +57,18 @@ public:
  */
 class StackStructure {
 public:
-	int stackSize;
-	int stackPos;
-	StackElement* stackData;
-	
 	StackStructure(int stackSizeIn);
 	~StackStructure();
 	void push(StackElement ptr);
 	bool stackIsEmpty();
 	bool stackNotEmpty();
+	void clear();
 	StackElement pop();
+
+private:
+	int stackSize;
+	int stackPos;
+	StackElement* stackData;
 };
 
 #endif /* Stack_hpp */

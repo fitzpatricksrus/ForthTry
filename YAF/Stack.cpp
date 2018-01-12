@@ -38,6 +38,10 @@ bool StackStructure::stackNotEmpty() {
 	return stackPos != 0;
 }
 
+void StackStructure::clear() {
+	stackPos = 0;
+}
+
 StackElement StackStructure::pop() {
 	if (stackPos > 0) {
 		stackPos--;

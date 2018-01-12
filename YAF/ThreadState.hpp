@@ -19,16 +19,23 @@
  */
 class ThreadState {
 public:
-	StackStructure returnStack;     //return stack
-	StackStructure dataStack;       //data stack
-	WordRecipe ip;          		//pointer to next word reference to execute
-	CompositeWord rootWord;			//word being 'execute()'ed
-
 	ThreadState(int dataStackSize, int returnStackSize, WordReference startingWord);
 	~ThreadState();
 	
 	bool run();
 	void terminate();
+	
+	void pushReturn(WordRecipe newIp);
+	void popReturn();
+	
+	void push(StackElement ptr);
+	StackElement pop();
+
+private:
+	StackStructure returnStack;     //return stack
+	StackStructure dataStack;       //data stack
+	WordRecipe ip;          		//pointer to next word reference to execute
+	CompositeWord rootWord;			//word being 'execute()'ed
 };
 
 #endif /* ThreadState_hpp */

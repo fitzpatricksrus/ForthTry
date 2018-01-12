@@ -11,12 +11,13 @@
 ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
 : ip(nullptr), dataStack(dspSize), returnStack(rspSize), rootWord(2)
 {
-	// Slightly hacky way to bootstrap by using the thread's own internal state to
-	// represent a composite word.  If the starting work ever returns/exit, things
-	// will restart again.
-	rootWord.recipe[0] = startingWord;
-	rootWord.recipe[1] = &CompositeWord::EXIT_WORD;
-	ip = rootWord.recipe;
+	rootWord[0] = startingWord;
+	rootWord[1] = &CompositeWord::EXIT_WORD;
+	//this is a bit of a hack to have the rootWord set it's recipe in the IP.
+	//a side effect is that a bogus IP gets pushed onto the return
+	//stack.  We pop that off so that it's clean when the thread starts.
+	rootWord.execute(this);
+	returnStack.clear();
 }
 
 ThreadState::~ThreadState() {
@@ -32,3 +33,21 @@ bool ThreadState::run() {
 void ThreadState::terminate() {
 	ip = 0;
 }
+
+void ThreadState::pushReturn(WordRecipe newIp) {
+	returnStack.push(ip);
+	ip = newIp;
+}
+
+void ThreadState::popReturn() {
+	ip = returnStack.pop();
+}
+
+void ThreadState::push(StackElement ptr){
+	dataStack.push(ptr);
+}
+
+StackElement ThreadState::pop() {
+	return dataStack.pop();
+}
+

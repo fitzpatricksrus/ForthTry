@@ -16,17 +16,20 @@
  */
 class CompositeWord : public Word {
 public:
-	WordReference* recipe;	//array of word references
-	bool ownsRecipe;
-	
 	CompositeWord(int size);
 	CompositeWord(WordRecipe recipe);				//adopt & free recipe
 	CompositeWord(WordRecipe recipe, int size);		//copy recipe
 	virtual ~CompositeWord();
+	
+	WordReference& operator[](int ndx);
+	
 	virtual void execute(ThreadState* state);
 	
 	static Word& EXIT_WORD;
 
+private:
+	WordReference* recipe;	//array of word references
+	bool ownsRecipe;
 };
 
 #endif /* CompositeWord_hpp */

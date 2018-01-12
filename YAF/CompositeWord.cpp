@@ -36,9 +36,12 @@ CompositeWord::~CompositeWord() {
 	}
 }
 
+WordReference& CompositeWord::operator[](int ndx) {
+	return recipe[ndx];
+}
+
 void CompositeWord::execute (ThreadState* state) {
-	state->returnStack.push(state->ip);
-	state->ip = recipe;
+	state->pushReturn(recipe);
 }
 
 class ExitWord : public Word {
@@ -51,7 +54,7 @@ ExitWord::~ExitWord() {
 }
 
 void ExitWord::execute (ThreadState* state) {
-	state->ip = state->returnStack.pop();
+	state->popReturn();
 }
 
 static ExitWord EXIT_WORD_INSTANCE;
