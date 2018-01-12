@@ -9,24 +9,8 @@
 #include <iostream>
 #include "ThreadState.hpp"
 #include "LoggingWord.hpp"
-#include "ExitSystemWord.hpp"
 #include "CompositeWord.hpp"
-
-typedef struct SystemState {
-	ThreadState* currentThread;
-	void* memory;
-	
-	SystemState(ThreadState* state)
-	: currentThread(state), memory(nullptr)
-	{
-		
-	}
-	void next() {
-		currentThread->next();
-		currentThread = currentThread->nextThread;
-	}
-} SystemState;
-
+#include "SystemState.hpp"
 
 int main(int argc, const char * argv[]) {
     // insert code here...
@@ -38,34 +22,37 @@ int main(int argc, const char * argv[]) {
 	LoggingWord Hello_BANG("!");
 	LoggingWord Hello_SPACE(" ");
 	LoggingWord World("World!\n");
-	ExitSystemWord Done(0);
-	WordReference BangBits[] = {
+	WordReference bangBits[] = {
 		&Hello_BANG,
 		&Hello_BANG,
 		&Hello_BANG,
 		&Hello_BANG,
 		&CompositeWord::EXIT_WORD
 	};
-	CompositeWord BangBangBang(BangBits);
-	WordReference HelloBits[] = {
+	CompositeWord bangBangBang(bangBits);
+	WordReference helloBits[] = {
 		&Hello_H,
 		&Hello_E,
 		&Hello_L,
 		&Hello_L,
 		&Hello_O,
-		&BangBangBang,
+		&bangBangBang,
 		&Hello_SPACE,
 		&CompositeWord::EXIT_WORD
 	};
-	CompositeWord Hello(HelloBits);
+	CompositeWord Hello(helloBits);
 	WordReference recipeBits[] = {
 		&Hello,
 		&World,
 		&CompositeWord::EXIT_WORD
 	};
-	CompositeWord word(recipeBits);
-	ThreadState thread(10, 10, &word);
+	CompositeWord helloWorldWord(recipeBits);
+	ThreadState* thread1 = new ThreadState(10, 10, &helloWorldWord);
+	ThreadState* thread2 = new ThreadState(10, 10, &bangBangBang);
+
+	SystemState systemState(thread1);
+	systemState.addThread(thread2);
 	
-	while (thread.next()) {	}
+	while (systemState.run()) {	}
 	return 0;
 }

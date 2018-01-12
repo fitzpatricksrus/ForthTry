@@ -23,7 +23,7 @@ public:
 	
 	LoggingWord(const char* message);
 	virtual ~LoggingWord();
-	virtual void execute (ThreadState* state);
+	virtual void execute(ThreadState* state);
 };
 
 #endif /* LoggingWord_hpp */

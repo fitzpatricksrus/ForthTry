@@ -8,11 +8,9 @@
 
 #include "ThreadState.hpp"
 
-
 ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
-: nextThread(this), ip(nullptr), dataStack(dspSize), returnStack(rspSize), rootWord(2)
+: ip(nullptr), dataStack(dspSize), returnStack(rspSize), rootWord(2)
 {
-	nextThread = this;
 	// Slightly hacky way to bootstrap by using the thread's own internal state to
 	// represent a composite word.  If the starting work ever returns/exit, things
 	// will restart again.
@@ -24,7 +22,7 @@ ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
 ThreadState::~ThreadState() {
 }
 
-bool ThreadState::next() {
+bool ThreadState::run() {
 	WordReference currentWord = (*ip);
 	ip++;
 	currentWord->execute(this);

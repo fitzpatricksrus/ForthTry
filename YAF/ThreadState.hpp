@@ -17,9 +17,8 @@
  * All the state needed for the inner interpreter and core primatives to execute a program other than the
  * system memory.
  */
-class ThreadState : public Word {
+class ThreadState {
 public:
-	ThreadState* nextThread;		//linked, circular list of threads.
 	StackStructure returnStack;     //return stack
 	StackStructure dataStack;       //data stack
 	WordRecipe ip;          		//pointer to next word reference to execute
@@ -28,7 +27,7 @@ public:
 	ThreadState(int dataStackSize, int returnStackSize, WordReference startingWord);
 	virtual ~ThreadState();
 	
-	virtual bool next();
+	virtual bool run();
 	void terminate();
 };
 

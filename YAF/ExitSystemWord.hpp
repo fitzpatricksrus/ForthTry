@@ -21,7 +21,7 @@ public:
 	
 	ExitSystemWord(int code);
 	virtual ~ExitSystemWord();
-	virtual void execute (ThreadState* state);
+	virtual void execute(ThreadState* state);
 };
 
 #endif /* ExitSystemWord_hpp */

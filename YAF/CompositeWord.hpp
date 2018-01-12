@@ -23,7 +23,7 @@ public:
 	CompositeWord(WordRecipe recipe);				//adopt & free recipe
 	CompositeWord(WordRecipe recipe, int size);		//copy recipe
 	virtual ~CompositeWord();
-	virtual void execute (ThreadState* state);
+	virtual void execute(ThreadState* state);
 	
 	static Word& EXIT_WORD;
 
