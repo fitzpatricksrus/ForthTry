@@ -39,11 +39,12 @@ int main(int argc, const char * argv[]) {
 	LoggingWord Hello_SPACE(" ");
 	LoggingWord World("World!\n");
 	ExitSystemWord Done(0);
-	CompositeWord::ExitWord exitWord;
 	WordReference BangBits[] = {
 		&Hello_BANG,
 		&Hello_BANG,
-		&exitWord
+		&Hello_BANG,
+		&Hello_BANG,
+		&CompositeWord::EXIT_WORD
 	};
 	CompositeWord BangBangBang(BangBits);
 	WordReference HelloBits[] = {
@@ -54,20 +55,17 @@ int main(int argc, const char * argv[]) {
 		&Hello_O,
 		&BangBangBang,
 		&Hello_SPACE,
-		&exitWord
+		&CompositeWord::EXIT_WORD
 	};
 	CompositeWord Hello(HelloBits);
-	WordReference recipeBits[3] = {
+	WordReference recipeBits[] = {
 		&Hello,
 		&World,
-		&Done
+		&CompositeWord::EXIT_WORD
 	};
-
 	CompositeWord word(recipeBits);
 	ThreadState thread(10, 10, &word);
 	
-	while (1) {
-		thread.next();
-	}
+	while (thread.next()) {	}
 	return 0;
 }

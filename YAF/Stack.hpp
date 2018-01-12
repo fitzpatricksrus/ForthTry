@@ -15,16 +15,19 @@
 
 class StackElement {
 public:
-	char charData[4];
+	char charData;
 	int intData;
 	WordReference wordData;
 	WordRecipe recipeData;
 	
 	StackElement() {
-		wordData = nullptr;
+		charData = 0;
+		intData = 0;
+		wordData = 0;
+		recipeData = 0;
 	}
 	StackElement(char c0) {
-		charData[0] = c0;
+		charData = c0;
 	}
 	StackElement(int i) {
 		intData = i;
@@ -36,7 +39,7 @@ public:
 		recipeData = p;
 	}
 	operator char() {
-		return charData[0];
+		return charData;
 	}
 	operator int() {
 		return intData;

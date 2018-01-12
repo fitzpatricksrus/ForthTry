@@ -7,21 +7,33 @@
 //
 
 #include "CompositeWord.hpp"
+#include "ThreadState.hpp"
+
 
 /**
  * Data used by the inner interpreter and base primatives.
  */
 CompositeWord::CompositeWord(int size)
-: Word() {
+: Word(), ownsRecipe(true) {
 	recipe = new WordReference[size];
 }
 
 CompositeWord::CompositeWord(WordRecipe recipeIn)
-: Word(), recipe(recipeIn) {
+: Word(), recipe(recipeIn), ownsRecipe(false) {
+}
+
+CompositeWord::CompositeWord(WordRecipe recipeIn, int size)
+: Word(), ownsRecipe(true) {
+	recipe = new WordReference[size];
+	for (int i = 0; i < size; i++) {
+		recipe[i] = recipeIn[i];
+	}
 }
 
 CompositeWord::~CompositeWord() {
-	delete[] recipe;
+	if (ownsRecipe) {
+		delete[] recipe;
+	}
 }
 
 void CompositeWord::execute (ThreadState* state) {
@@ -29,10 +41,19 @@ void CompositeWord::execute (ThreadState* state) {
 	state->ip = recipe;
 }
 
-CompositeWord::ExitWord::~ExitWord() {
+class ExitWord : public Word {
+public:
+	virtual ~ExitWord();
+	virtual void execute (ThreadState* state);
+};
+
+ExitWord::~ExitWord() {
 }
 
-void CompositeWord::ExitWord::execute (ThreadState* state) {
+void ExitWord::execute (ThreadState* state) {
 	state->ip = state->returnStack.pop();
 }
+
+static ExitWord EXIT_WORD_INSTANCE;
+Word& CompositeWord::EXIT_WORD = EXIT_WORD_INSTANCE;
 
