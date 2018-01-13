@@ -17,11 +17,11 @@ public:
 	ThreadList(ThreadState* stateIn);
 	~ThreadList();
 
-	void insert(ThreadList* newNextThread);
-	void removeSelf();
+	void insertNext(ThreadList* newNextThread);
+	bool removeSelf();
 	ThreadList* find(ThreadState* state);
 	
-	ThreadList* run();
+	bool run();
 };
 
 ThreadList::ThreadList(ThreadState* stateIn)
@@ -34,7 +34,7 @@ ThreadList::~ThreadList() {
 	delete state;
 }
 
-void ThreadList::insert(ThreadList* newNextThread) {
+void ThreadList::insertNext(ThreadList* newNextThread) {
 	// set up back pointers
 	nextThread->prevThread = newNextThread;
 	newNextThread->prevThread = this;
@@ -44,11 +44,16 @@ void ThreadList::insert(ThreadList* newNextThread) {
 	nextThread = newNextThread;
 }
 
-void ThreadList::removeSelf() {
-	nextThread->prevThread = prevThread;
-	prevThread->nextThread = nextThread;
-	prevThread = nullptr;
-	nextThread = nullptr;
+bool ThreadList::removeSelf() {
+	if (this == nextThread) {
+		return false;
+	} else {
+		nextThread->prevThread = prevThread;
+		prevThread->nextThread = nextThread;
+		prevThread = this;
+		nextThread = this;
+		return true;
+	}
 }
 
 ThreadList* ThreadList::find(ThreadState* stateIn) {
@@ -67,23 +72,8 @@ ThreadList* ThreadList::find(ThreadState* stateIn) {
 	}
 }
 
-ThreadList* ThreadList::run() {
-	if (state->run()) {
-		// this thread is still working and can stay in the list.
-		return nextThread;
-	} else {
-		// this thread is done, so it needs to be removed from the list
-		if (this == nextThread) {
-			// we're the only thread and we're done, so shut down the system.
-			return nullptr;
-		} else {
-			// this thread is done, but other still have work to do, so
-			// just remove this thread from the list and leave the rest.
-			ThreadList* result = nextThread;
-			removeSelf();
-			return result;
-		}
-	}
+bool ThreadList::run() {
+	return state->run();
 }
 
 SystemState::SystemState(ThreadState* mainThread)
@@ -92,33 +82,27 @@ SystemState::SystemState(ThreadState* mainThread)
 }
 
 SystemState::~SystemState(){
-	while (currentThread != currentThread->nextThread) {
-		ThreadList* d = currentThread;
-		currentThread = currentThread->nextThread;
-		d->removeSelf();
-		delete d;
+	ThreadList* next = currentThread->nextThread;
+	while (next->removeSelf()) {
+		next = currentThread->nextThread;
 	}
 	delete currentThread;
 	currentThread = nullptr;
 }
 
 void SystemState::addThread(ThreadState* state) {
-	currentThread->insert(new ThreadList(state));
-}
-
-void SystemState::removeThread(ThreadState* state) {
-	ThreadList* t = currentThread->find(state);
-	if (t == currentThread) {
-		currentThread = currentThread->nextThread;
-	}
-	if (t == currentThread) {
-		currentThread = nullptr;
-		// TODO this will crash things.  We've removed the only thread.
-	}
+	currentThread->insertNext(new ThreadList(state));
 }
 
 bool SystemState::run() {
-	currentThread = currentThread->run();
-	return currentThread;
+	if (currentThread->run()) {
+		currentThread = currentThread->nextThread;
+		return true;
+	} else {
+		//the current thread is done, so we need to delete it.
+		ThreadList* deadThread = currentThread;
+		currentThread = currentThread->nextThread;
+		return deadThread->removeSelf();
+	}
 }
 

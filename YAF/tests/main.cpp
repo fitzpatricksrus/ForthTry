@@ -22,13 +22,24 @@ int main(int argc, const char * argv[]) {
 	LoggingWord Hello_BANG("!");
 	LoggingWord Hello_SPACE(" ");
 	LoggingWord World("World!\n");
+	LoggingWord One("1");
+	LoggingWord Two("2");
+	LoggingWord Three("3");
+	LoggingWord Four("4");
+	WordReference countingBits[] = {
+		&One,
+		&Two,
+		&Three,
+		&Four,
+		&CompositeWord::EXIT_WORD
+	};
+	CompositeWord counting(countingBits);
 	WordReference hBits[] = {
 		&Hello_H,
 		&CompositeWord::EXIT_WORD
 	};
 	CompositeWord justH(hBits);
 	WordReference bangBits[] = {
-		&Hello_BANG,
 		&Hello_BANG,
 		&Hello_BANG,
 		&Hello_BANG,
@@ -53,12 +64,12 @@ int main(int argc, const char * argv[]) {
 	};
 	CompositeWord helloWorldWord(recipeBits);
 	ThreadState* thread1 = new ThreadState(10, 10, &helloWorldWord);
-	ThreadState* thread2 = new ThreadState(10, 10, &bangBangBang);
+	ThreadState* thread2 = new ThreadState(10, 10, &counting);
 //	ThreadState* thread3 = new ThreadState(10,10,&justH);
 
 	SystemState systemState(thread1);
 	systemState.addThread(thread2);
 	
-	while (thread1->run()) {	}
+	while (systemState.run()) {	}
 	return 0;
 }

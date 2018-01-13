@@ -18,7 +18,6 @@ public:
 	SystemState(ThreadState* mainThread);
 	~SystemState();
 	void addThread(ThreadState* state);
-	void removeThread(ThreadState* state);
 	bool run();
 	
 private:
