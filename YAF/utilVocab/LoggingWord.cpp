@@ -10,9 +10,11 @@
 #include <iostream>
 
 
-LoggingWord::LoggingWord(const char* messageIn)
-: Word(), message(messageIn) {
-	
+LoggingWord::LoggingWord(const char* messageIn, const char* traceName)
+: Word(), message(messageIn), name(traceName) {
+	if (name == nullptr) {
+		name = "LogginWord";
+	}
 }
 
 LoggingWord::~LoggingWord() {
@@ -21,3 +23,8 @@ LoggingWord::~LoggingWord() {
 void LoggingWord::execute (ThreadState* state) {	
 	std::cout << message;
 }
+
+const char* LoggingWord::getTraceName() {
+	return name;
+}
+

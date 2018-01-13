@@ -20,10 +20,12 @@
 class LoggingWord : public Word {
 public:
 	const char* message;
-	
-	LoggingWord(const char* message);
+	const char* name;
+
+	LoggingWord(const char* message, const char* traceName = nullptr);
 	virtual ~LoggingWord();
 	virtual void execute(ThreadState* state);
+	virtual const char* getTraceName();
 };
 
 #endif /* LoggingWord_hpp */

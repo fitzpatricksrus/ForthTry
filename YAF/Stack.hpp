@@ -60,10 +60,11 @@ public:
 	StackStructure(int stackSizeIn);
 	~StackStructure();
 	void push(StackElement ptr);
+	StackElement pop();
+	int depth();
 	bool stackIsEmpty();
 	bool stackNotEmpty();
 	void clear();
-	StackElement pop();
 
 private:
 	int stackSize;

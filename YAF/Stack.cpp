@@ -30,6 +30,20 @@ void StackStructure::push(StackElement ptr) {
 	}
 }
 
+StackElement StackStructure::pop() {
+	if (stackPos > 0) {
+		stackPos--;
+		return stackData[stackPos];
+	} else {
+		// TODO: Handle stack underflow
+		return StackElement();
+	}
+}
+
+int StackStructure::depth() {
+	return stackPos;
+}
+
 bool StackStructure::stackIsEmpty() {
 	return stackPos == 0;
 }
@@ -42,13 +56,4 @@ void StackStructure::clear() {
 	stackPos = 0;
 }
 
-StackElement StackStructure::pop() {
-	if (stackPos > 0) {
-		stackPos--;
-		return stackData[stackPos];
-	} else {
-		// TODO: Handle stack underflow
-		return StackElement();
-	}
-}
 

@@ -20,6 +20,8 @@ class Word {
 public:
 	virtual ~Word();
 	virtual void execute(ThreadState* state);
+	
+	virtual const char* getTraceName();
 };
 
 typedef Word* WordReference;

@@ -9,8 +9,11 @@
 #include "Word.hpp"
 
 Word::~Word() {
-	
 }
 
 void Word::execute(ThreadState* state) {
+}
+
+const char* Word::getTraceName() {
+	return "";
 }

@@ -28,18 +28,18 @@ public:
 	void pushReturn(WordRecipe newIp);
 	void popReturn();
 	
-	void push(StackElement ptr);
-	StackElement pop();
+	void setTrace(bool on);
 	
-	void push2();
-	void pop2();
-
+	static Word& TRACE_ON_WORD;
+	static Word& TRACE_OFF_WORD;
+	static Word& TERMINATE_THREAD_WORD;
+	
 private:
 	StackStructure returnStack;     //return stack
-	StackStructure dataStack;       //data stack
-	StackStructure dataStack2;      //data stack2
 	WordRecipe ip;          		//pointer to next word reference to execute
 	CompositeWord rootWord;			//word being 'execute()'ed
+	bool traceEnabled;
+	const char* traceName;
 };
 
 #endif /* ThreadState_hpp */

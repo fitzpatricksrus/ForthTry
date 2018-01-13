@@ -8,8 +8,11 @@
 
 #include "ThreadState.hpp"
 
+#include <string.h>
+#include <iostream>
+
 ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
-: ip(nullptr), dataStack(dspSize), dataStack2(50), returnStack(rspSize), rootWord(2)
+: ip(nullptr), returnStack(rspSize), rootWord(2), traceEnabled(false), traceName(startingWord->getTraceName())
 {
 	// build the root word consisting of the word passed in and an exit command.
 	rootWord[0] = startingWord;
@@ -24,11 +27,33 @@ ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
 ThreadState::~ThreadState() {
 }
 
+static const char* SPACES = "............................................................................";
+static inline size_t min(size_t x,size_t y) {
+	if (x < y) {
+		return x;
+	} else {
+		return y;
+	}
+}
+
 bool ThreadState::run() {
-	WordReference currentWord = (*ip);
-	ip++;
-	currentWord->execute(this);
-	return ip;
+	if (traceEnabled) {
+		WordReference currentWord = (*ip);
+		ip++;
+		std::cout << traceName;
+		std::cout << SPACES + strlen(SPACES) - 10 + min(10, strlen(traceName));
+		std::cout << ip;
+		std::cout << (SPACES + strlen(SPACES) - returnStack.depth());
+		std::cout << currentWord->getTraceName();
+		std::cout << "\n";
+		currentWord->execute(this);
+		return ip;
+	} else {
+		WordReference currentWord = (*ip);
+		ip++;
+		currentWord->execute(this);
+		return ip;
+	}
 }
 
 void ThreadState::terminate() {
@@ -44,20 +69,55 @@ void ThreadState::popReturn() {
 	ip = returnStack.pop();
 }
 
-void ThreadState::push(StackElement ptr){
-	dataStack.push(ptr);
+void ThreadState::setTrace(bool on) {
+	traceEnabled = on;
 }
 
-StackElement ThreadState::pop() {
-	return dataStack.pop();
+class ChangeTraceValue : public Word {
+public:
+	ChangeTraceValue(bool on);
+	virtual void execute(ThreadState* state);
+	virtual const char* getTraceName();
+private:
+	bool turnTraceOn;
+};
+
+ChangeTraceValue::ChangeTraceValue(bool on)
+: Word(), turnTraceOn(on)
+{
 }
 
-void ThreadState::push2() {
-	dataStack2.push(dataStack.pop());
+void ChangeTraceValue::execute(ThreadState *state) {
+	state->setTrace(turnTraceOn);
 }
 
-void ThreadState::pop2(){
-	dataStack.push(dataStack2.pop());
+const char* ChangeTraceValue::getTraceName() {
+	if (turnTraceOn) {
+		return "TRACE ON";
+	} else {
+		return "TRACE OFF";
+	}
 }
 
+static ChangeTraceValue traceOn(true);
+Word& ThreadState::TRACE_ON_WORD = traceOn;
 
+static ChangeTraceValue traceOff(false);
+Word& ThreadState::TRACE_OFF_WORD = traceOff;
+
+class TerminateThreadWord : public Word {
+public:
+	virtual void execute(ThreadState* state);
+	virtual const char* getTraceName();
+};
+
+void TerminateThreadWord::execute(ThreadState *state) {
+	state->terminate();
+}
+
+const char* TerminateThreadWord::getTraceName() {
+	return "TERMINATE THREAD";
+}
+
+static TerminateThreadWord terminateThread;
+Word& ThreadState::TERMINATE_THREAD_WORD = terminateThread;

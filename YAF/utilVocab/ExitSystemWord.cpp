@@ -21,3 +21,9 @@ ExitSystemWord::~ExitSystemWord() {
 void ExitSystemWord::execute (ThreadState* state) {
 	exit(code);
 }
+
+const char* ExitSystemWord::getTraceName() {
+	return "ExitSystemWord";
+}
+
+
