@@ -9,7 +9,7 @@
 #include "ThreadState.hpp"
 
 ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
-: ip(nullptr), dataStack(dspSize), returnStack(rspSize), rootWord(2)
+: ip(nullptr), dataStack(dspSize), dataStack2(50), returnStack(rspSize), rootWord(2)
 {
 	// build the root word consisting of the word passed in and an exit command.
 	rootWord[0] = startingWord;
@@ -51,4 +51,13 @@ void ThreadState::push(StackElement ptr){
 StackElement ThreadState::pop() {
 	return dataStack.pop();
 }
+
+void ThreadState::push2() {
+	dataStack2.push(dataStack.pop());
+}
+
+void ThreadState::pop2(){
+	dataStack.push(dataStack2.pop());
+}
+
 

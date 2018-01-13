@@ -30,10 +30,14 @@ public:
 	
 	void push(StackElement ptr);
 	StackElement pop();
+	
+	void push2();
+	void pop2();
 
 private:
 	StackStructure returnStack;     //return stack
 	StackStructure dataStack;       //data stack
+	StackStructure dataStack2;      //data stack2
 	WordRecipe ip;          		//pointer to next word reference to execute
 	CompositeWord rootWord;			//word being 'execute()'ed
 };
