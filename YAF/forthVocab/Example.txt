@@ -1,0 +1,64 @@
+//
+
+
+: CCells ( ndx -- size ) ;
+: ICells 2 * ;
+: LCells 4 * ;
+: WCells 4 * ;
+: CArray < ( <type size> -- array )
+: IArray < ( <type size> -- array )
+  ICells Array ; IMMEDIATE
+: LArray < ( <type size> -- array )
+: WArray < ( <type size> -- array )
+
+
+
+
+: c@				// 4 myarray c@
+: c=				// someValue 4 myarray c=
+: @
+: =
+: l@
+: l=
+: w@
+: w=
+
+
+: nextTokenFromInput ( charArray -- )
+
+:
+
+CHARACTER 4 Array myArray
+someValue myArray 3 [] c=
+myArray 3 cells + c@ .
+
+CHARACTER Variable myChar
+someValue myChar c=
+myChar c@ .
+
+: [] ( arrayAddr ndx -- itemAddr )
+
+
+( Outer interpreter )
+
+CHARACTER 256 Array inputBuffer
+
+: OuterInterp
+	while
+	[ inputBuffer readToken() inputBuffer c@ 0 != ]
+	[
+	]
+
+if [ condition ] [ action ] elseif [ condition ] [ action ] else [ action ] endif
+switch case [ condition ] [ action ] case [ condition ] [ action ] endswitch
+[ condition ] if [ action ]
+[ condition ] [ action ] if
+
+[ condition ] if: [ action1 ] else:
+
+[ condition ] [ action1 ] [ action2 ] if:else:
+[ condition ] [ action ] while:
+
+
+
+
