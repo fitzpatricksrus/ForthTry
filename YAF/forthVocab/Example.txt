@@ -44,10 +44,27 @@ myChar c@ .
 CHARACTER 256 Array inputBuffer
 
 : OuterInterp
-	while
-	[ inputBuffer readToken() inputBuffer c@ 0 != ]
+	[ inputBuffer readToken() ]
 	[
+		inputBuffer c@ isNumber ifelse()
+		[
+			inputBuffer parseNumber()
+		]
+		[
+			( not a mumber, so it must be a word )
+			inputBuffer findWord()
+			ifElse()
+			[
+				
+			]
+			[
+			]
+		]
 	]
+	whileTrue:
+
+// A code block [ code ] always pushes itself on the stack when it is executed by the
+// interpreter as a thread. The "execute" word will actually execute the blocks contents
 
 switch case [ condition ] [ action ] case [ condition ] [ action ] endswitch
 [ condition ] if [ action ]
@@ -56,16 +73,16 @@ switch case [ condition ] [ action ] case [ condition ] [ action ] endswitch
 [ condition ] if: [ action1 ] else:
 
 // [ condition ] ifTrue: [ action1] ifFalse: [ action2 ]
-[ condition ] [ action1 ] [ action2 ] if:else:
+[ condition ] [ action1 ] [ action2 ] if:else:()
 
 // [ condition ] whiletrue: [ action ]
-[ condition ] [ action ] whileTrue:
+[ condition ] [ action ] whileTrue:()
 
 // [ condition ] repeatUntilFalse: [ action ]
-[ condition ] [ action ] repeatUntilFalse:
+[ condition ] [ action ] repeatUntilFalse:()
 
 // start to: finish do: [ action ]
-start finish [ action ] to:do:
+start finish [ action ] to:do:()
 
 
 
