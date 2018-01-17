@@ -49,15 +49,24 @@ CHARACTER 256 Array inputBuffer
 	[
 	]
 
-if [ condition ] [ action ] elseif [ condition ] [ action ] else [ action ] endif
 switch case [ condition ] [ action ] case [ condition ] [ action ] endswitch
 [ condition ] if [ action ]
 [ condition ] [ action ] if
 
 [ condition ] if: [ action1 ] else:
 
+// [ condition ] ifTrue: [ action1] ifFalse: [ action2 ]
 [ condition ] [ action1 ] [ action2 ] if:else:
-[ condition ] [ action ] while:
+
+// [ condition ] whiletrue: [ action ]
+[ condition ] [ action ] whileTrue:
+
+// [ condition ] repeatUntilFalse: [ action ]
+[ condition ] [ action ] repeatUntilFalse:
+
+// start to: finish do: [ action ]
+start finish [ action ] to:do:
+
 
 
 
