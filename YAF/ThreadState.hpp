@@ -27,19 +27,24 @@ public:
 	
 	void pushReturn(WordRecipe newIp);
 	void popReturn();
+
+	void pushData(WordReference dataWord);
+	WordReference popData();
 	
 	void setTrace(bool on);
 	
 	static Word& TRACE_ON_WORD;
 	static Word& TRACE_OFF_WORD;
 	static Word& TERMINATE_THREAD_WORD;
-	
+
 private:
 	StackStructure returnStack;     //return stack
 	WordRecipe ip;          		//pointer to next word reference to execute
 	CompositeWord rootWord;			//word being 'execute()'ed
 	bool traceEnabled;
-	const char* traceName;
+	std::string traceName;
+	
+	StackStructure dataStack;		//data stack
 };
 
 #endif /* ThreadState_hpp */

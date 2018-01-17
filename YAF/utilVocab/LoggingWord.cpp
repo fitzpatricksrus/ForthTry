@@ -10,9 +10,9 @@
 #include <iostream>
 
 
-LoggingWord::LoggingWord(const char* messageIn, const char* traceName)
+LoggingWord::LoggingWord(std::string messageIn, std::string traceName)
 : Word(), message(messageIn), name(traceName) {
-	if (name == nullptr) {
+	if (name.empty()) {
 		name = "LogginWord";
 	}
 }
@@ -24,7 +24,7 @@ void LoggingWord::execute (ThreadState* state) {
 	std::cout << message;
 }
 
-const char* LoggingWord::getTraceName() {
+std::string LoggingWord::getTraceName() {
 	return name;
 }
 

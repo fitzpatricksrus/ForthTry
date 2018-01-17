@@ -9,7 +9,7 @@
 #ifndef Word_hpp
 #define Word_hpp
 
-#include <stdio.h>
+#include <string>
 
 class ThreadState;
 
@@ -21,7 +21,7 @@ public:
 	virtual ~Word();
 	virtual void execute(ThreadState* state);
 	
-	virtual const char* getTraceName();
+	virtual std::string getTraceName();
 };
 
 typedef Word* WordReference;

@@ -16,22 +16,22 @@
  */
 class CompositeWord : public Word {
 public:
-	CompositeWord(int size, const char* name = nullptr);
-	CompositeWord(WordRecipe recipe, const char* name = nullptr);				//adopt & free recipe
-	CompositeWord(WordRecipe recipe, int size, const char* name = nullptr);		//copy recipe
+	CompositeWord(int size, std::string name = nullptr);
+	CompositeWord(WordRecipe recipe, std::string name = nullptr);				//adopt & free recipe
+	CompositeWord(WordRecipe recipe, int size, std::string name = nullptr);		//copy recipe
 	virtual ~CompositeWord();
 	
 	WordReference& operator[](int ndx);
 	
 	virtual void execute(ThreadState* state);
-	virtual const char* getTraceName();
+	virtual std::string getTraceName();
 	
 	static Word& EXIT_WORD;
 
 private:
 	WordReference* recipe;	//array of word references
 	bool ownsRecipe;
-	const char* traceName;
+	std::string traceName;
 };
 
 #endif /* CompositeWord_hpp */

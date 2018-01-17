@@ -22,7 +22,7 @@ public:
 	ExitSystemWord(int code);
 	virtual ~ExitSystemWord();
 	virtual void execute(ThreadState* state);
-	virtual const char* getTraceName();
+	virtual std::string getTraceName();
 };
 
 #endif /* ExitSystemWord_hpp */

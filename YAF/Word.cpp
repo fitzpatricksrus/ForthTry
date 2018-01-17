@@ -14,6 +14,6 @@ Word::~Word() {
 void Word::execute(ThreadState* state) {
 }
 
-const char* Word::getTraceName() {
+std::string Word::getTraceName() {
 	return "";
 }

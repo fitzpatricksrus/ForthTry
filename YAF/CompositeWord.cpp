@@ -10,32 +10,30 @@
 #include "ThreadState.hpp"
 #include <string.h>
 
-static const char* cloneString(const char* str) {
-	if (str == nullptr) {
+static std::string cloneString(std::string str) {
+	if (str.empty()) {
 		str = "CompositeWord";
 	}
-	char* s = new char[strlen(str)+1];
-	strcpy(s, str);
-	return s;
+	return str;
 }
 
 /**
  * Data used by the inner interpreter and base primatives.
  */
-CompositeWord::CompositeWord(int size, const char* name)
+CompositeWord::CompositeWord(int size, std::string name)
 : Word(), ownsRecipe(true) {
 	recipe = new WordReference[size];
 	traceName = cloneString(name);
 }
 
-CompositeWord::CompositeWord(WordRecipe recipeIn, const char* name)
+CompositeWord::CompositeWord(WordRecipe recipeIn, std::string name)
 : Word(), recipe(recipeIn), ownsRecipe(false), traceName(name) {
-	if (traceName == NULL) {
+	if (traceName.empty()) {
 		traceName = "CompositeWord";
 	}
 }
 
-CompositeWord::CompositeWord(WordRecipe recipeIn, int size, const char* name)
+CompositeWord::CompositeWord(WordRecipe recipeIn, int size, std::string name)
 : Word(), ownsRecipe(true) {
 	recipe = new WordReference[size];
 	for (int i = 0; i < size; i++) {
@@ -47,7 +45,6 @@ CompositeWord::CompositeWord(WordRecipe recipeIn, int size, const char* name)
 CompositeWord::~CompositeWord() {
 	if (ownsRecipe) {
 		delete[] recipe;
-		delete[] traceName;
 	}
 }
 
@@ -59,7 +56,7 @@ void CompositeWord::execute (ThreadState* state) {
 	state->pushReturn(recipe);
 }
 
-const char* CompositeWord::getTraceName() {
+std::string CompositeWord::getTraceName() {
 	return traceName;
 }
 
@@ -67,7 +64,7 @@ class ExitWord : public Word {
 public:
 	virtual ~ExitWord();
 	virtual void execute (ThreadState* state);
-	virtual const char* getTraceName();
+	virtual std::string getTraceName();
 };
 
 ExitWord::~ExitWord() {
@@ -77,7 +74,7 @@ void ExitWord::execute (ThreadState* state) {
 	state->popReturn();
 }
 
-const char* ExitWord::getTraceName() {
+std::string ExitWord::getTraceName() {
 	return "ExitWord";
 }
 

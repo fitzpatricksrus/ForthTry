@@ -12,7 +12,7 @@
 #include <iostream>
 
 ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
-: ip(nullptr), returnStack(rspSize), rootWord(2), traceEnabled(false), traceName(startingWord->getTraceName())
+: ip(nullptr), returnStack(rspSize), dataStack(dspSize), rootWord(2), traceEnabled(false), traceName(startingWord->getTraceName())
 {
 	// build the root word consisting of the word passed in and an exit command.
 	rootWord[0] = startingWord;
@@ -27,7 +27,8 @@ ThreadState::ThreadState(int dspSize, int rspSize, WordReference startingWord)
 ThreadState::~ThreadState() {
 }
 
-static const char* SPACES = "............................................................................";
+static const char* SPACES = "                                                                            ";
+static const char* DOTS   = "............................................................................";
 static inline size_t min(size_t x,size_t y) {
 	if (x < y) {
 		return x;
@@ -41,9 +42,8 @@ bool ThreadState::run() {
 		WordReference currentWord = (*ip);
 		ip++;
 		std::cout << traceName;
-		std::cout << SPACES + strlen(SPACES) - 10 + min(10, strlen(traceName));
-		std::cout << ip;
-		std::cout << (SPACES + strlen(SPACES) - returnStack.depth());
+		std::cout << SPACES + strlen(SPACES) - 10 + min(10, traceName.length());
+		std::cout << (DOTS + strlen(DOTS) - returnStack.depth());
 		std::cout << currentWord->getTraceName();
 		std::cout << "\n";
 		currentWord->execute(this);
@@ -69,6 +69,14 @@ void ThreadState::popReturn() {
 	ip = returnStack.pop();
 }
 
+void ThreadState::pushData(WordReference newIp) {
+	dataStack.push(newIp);
+}
+
+WordReference ThreadState::popData() {
+	return dataStack.pop();
+}
+
 void ThreadState::setTrace(bool on) {
 	traceEnabled = on;
 }
@@ -77,7 +85,7 @@ class ChangeTraceValue : public Word {
 public:
 	ChangeTraceValue(bool on);
 	virtual void execute(ThreadState* state);
-	virtual const char* getTraceName();
+	virtual std::string getTraceName();
 private:
 	bool turnTraceOn;
 };
@@ -91,7 +99,7 @@ void ChangeTraceValue::execute(ThreadState *state) {
 	state->setTrace(turnTraceOn);
 }
 
-const char* ChangeTraceValue::getTraceName() {
+std::string ChangeTraceValue::getTraceName() {
 	if (turnTraceOn) {
 		return "TRACE ON";
 	} else {
@@ -108,14 +116,14 @@ Word& ThreadState::TRACE_OFF_WORD = traceOff;
 class TerminateThreadWord : public Word {
 public:
 	virtual void execute(ThreadState* state);
-	virtual const char* getTraceName();
+	virtual std::string getTraceName();
 };
 
 void TerminateThreadWord::execute(ThreadState *state) {
 	state->terminate();
 }
 
-const char* TerminateThreadWord::getTraceName() {
+std::string TerminateThreadWord::getTraceName() {
 	return "TERMINATE THREAD";
 }
 

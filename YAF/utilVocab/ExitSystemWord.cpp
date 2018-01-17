@@ -22,7 +22,7 @@ void ExitSystemWord::execute (ThreadState* state) {
 	exit(code);
 }
 
-const char* ExitSystemWord::getTraceName() {
+std::string ExitSystemWord::getTraceName() {
 	return "ExitSystemWord";
 }
 

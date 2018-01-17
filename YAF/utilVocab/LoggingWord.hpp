@@ -19,13 +19,13 @@
  */
 class LoggingWord : public Word {
 public:
-	const char* message;
-	const char* name;
+	std::string message;
+	std::string name;
 
-	LoggingWord(const char* message, const char* traceName = nullptr);
+	LoggingWord(std::string message, std::string traceName = nullptr);
 	virtual ~LoggingWord();
 	virtual void execute(ThreadState* state);
-	virtual const char* getTraceName();
+	virtual std::string getTraceName();
 };
 
 #endif /* LoggingWord_hpp */
