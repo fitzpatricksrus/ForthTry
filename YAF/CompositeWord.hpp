@@ -16,9 +16,9 @@
  */
 class CompositeWord : public Word {
 public:
-	CompositeWord(int size, std::string name = nullptr);
-	CompositeWord(WordRecipe recipe, std::string name = nullptr);				//adopt & free recipe
-	CompositeWord(WordRecipe recipe, int size, std::string name = nullptr);		//copy recipe
+	CompositeWord(int size, std::string name = "");
+	CompositeWord(WordRecipe recipe, std::string name = "");				//adopt & free recipe
+	CompositeWord(WordRecipe recipe, int size, std::string name = "");		//copy recipe
 	virtual ~CompositeWord();
 	
 	WordReference& operator[](int ndx);
