@@ -19,10 +19,22 @@ public:
 	virtual std::string getTraceName();
 	
 	operator int();
-	IntConstant& operator=(int x);	
+	IntConstant& operator=(int x);
+	
+	operator char();
+	IntConstant& operator=(char x);
+	
+	operator WordReference();
+	IntConstant& operator=(WordReference x);
 	
 private:
-	int value;
+	struct Values {
+		char c;
+		int i;
+		WordReference w;
+	};
+	
+	Values value;
 };
 
 #endif /* IntConstant_hpp */

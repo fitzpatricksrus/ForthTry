@@ -21,14 +21,32 @@ IntConstant::~IntConstant() {
 }
 
 std::string IntConstant::getTraceName(){
-	return std::to_string(value);
+	return std::to_string(value.i);
 }
 
 IntConstant::operator int() {
-	return value;
+	return value.i;
 }
 
 IntConstant& IntConstant::operator=(int x) {
-	value = x;
+	value.i = x;
+	return *this;
+}
+
+IntConstant::operator char() {
+	return value.c;
+}
+
+IntConstant& IntConstant::operator=(char x) {
+	value.c = x;
+	return *this;
+}
+
+IntConstant::operator WordReference() {
+	return value.w;
+}
+
+IntConstant& IntConstant::operator=(WordReference x) {
+	value.w = x;
 	return *this;
 }
