@@ -41,40 +41,68 @@ myChar c@ .
 
 ( Outer interpreter )
 
+
+: c@
+	primative ### ;
+
+: c!
+	primative ### ;
+
+: execute()
+	primative ### ;
+
+: dup()
+	primative ### ;
+
+: over()
+	primative ### ;
+
+: drop()
+	primative ### ;
+
 CHARACTER 256 Array inputBuffer
 
-:whiletrue()
-:systemRunning
-:c@
-:inputBuffer
-:isNumber()
-:ifElse()
-:parseNumber()
-:findWord()
-:dup()
-:execute()
-:drop()
-:"
-:emit
+: (
+	[ readChar() 41 != ] whileTrue: [ ]
+;
+
+: whiletrue()
+: systemRunning
+
+: inputBuffer
+: isNumber()
+: ifElse()
+: parseNumber()
+: findWord()
+
+: " ( inputBufferAddr -- )
+	[ readChar() dup() 34 != ] whileTrue:
+	[ over() c! 1 + ]
+	drop()
+;
+
+: emitChar ( char -- )
+	primative ### ;
+
+: emit() ( stringAddr -- )
+	[ dup c@ 0 != ]	whileTrue: [		( is current character a string terminator, 0x00? )
+		dup c@ emitChar()		( emit the character )
+		1 +						( move the pointer to the next character )
+	]
+;
 
 : OuterInterp
-	whileTrue()
-	[ systemRunning c@ ]
-	[
+	[ systemRunning c@ ] whileTrue: [
 		inputBuffer readToken()
-		inputBuffer c@ isNumber() ifElse()
-		[
+		[ inputBuffer c@ isNumber() ] if: [
 			inputBuffer parseNumber()
-		]
-		[
+		] else: [
 			( not a mumber, so it must be a word )
-			inputBuffer findWord() dup()
-			ifElse()
-			[
+			[ inputBuffer findWord() dup() ] if: [
 				execute()
-			]
-			[
-				drop() " ?" emit()
+			] else: [
+				drop()
+				" ?" emit()
 			]
 		]
 	]
