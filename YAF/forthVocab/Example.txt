@@ -43,25 +43,42 @@ myChar c@ .
 
 CHARACTER 256 Array inputBuffer
 
+:whiletrue()
+:systemRunning
+:c@
+:inputBuffer
+:isNumber()
+:ifElse()
+:parseNumber()
+:findWord()
+:dup()
+:execute()
+:drop()
+:"
+:emit
+
 : OuterInterp
-	[ inputBuffer readToken() ]
+	whileTrue()
+	[ systemRunning c@ ]
 	[
-		inputBuffer c@ isNumber ifelse()
+		inputBuffer readToken()
+		inputBuffer c@ isNumber() ifElse()
 		[
 			inputBuffer parseNumber()
 		]
 		[
 			( not a mumber, so it must be a word )
-			inputBuffer findWord()
+			inputBuffer findWord() dup()
 			ifElse()
 			[
-				
+				execute()
 			]
 			[
+				drop() " ?" emit()
 			]
 		]
 	]
-	whileTrue:
+;
 
 // A code block [ code ] always pushes itself on the stack when it is executed by the
 // interpreter as a thread. The "execute" word will actually execute the blocks contents
