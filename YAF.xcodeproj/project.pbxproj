@@ -33,10 +33,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0A6790E8200FE26D00E2516E /* IntConstant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IntConstant.cpp; path = coreVocab/IntConstant.cpp; sourceTree = SOURCE_ROOT; };
-		0A6790E9200FE26D00E2516E /* IntConstant.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IntConstant.hpp; path = coreVocab/IntConstant.hpp; sourceTree = SOURCE_ROOT; };
-		0A6790EB200FE2E200E2516E /* ValueWord.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ValueWord.cpp; path = coreVocab/ValueWord.cpp; sourceTree = SOURCE_ROOT; };
-		0A6790EC200FE2E200E2516E /* ValueWord.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ValueWord.hpp; path = coreVocab/ValueWord.hpp; sourceTree = SOURCE_ROOT; };
+		0A6790E8200FE26D00E2516E /* IntConstant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IntConstant.cpp; path = YAF/coreVocab/IntConstant.cpp; sourceTree = SOURCE_ROOT; };
+		0A6790E9200FE26D00E2516E /* IntConstant.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IntConstant.hpp; path = YAF/coreVocab/IntConstant.hpp; sourceTree = SOURCE_ROOT; };
+		0A6790EB200FE2E200E2516E /* ValueWord.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ValueWord.cpp; path = YAF/coreVocab/ValueWord.cpp; sourceTree = SOURCE_ROOT; };
+		0A6790EC200FE2E200E2516E /* ValueWord.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ValueWord.hpp; path = YAF/coreVocab/ValueWord.hpp; sourceTree = SOURCE_ROOT; };
 		0F2B6A252009C23200D9A958 /* ThreadTests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadTests.cpp; sourceTree = "<group>"; };
 		0F2B6A262009C23200D9A958 /* ThreadTests.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ThreadTests.hpp; sourceTree = "<group>"; };
 		0F2B6A2D200BD95800D9A958 /* Example.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Example.txt; sourceTree = "<group>"; };
