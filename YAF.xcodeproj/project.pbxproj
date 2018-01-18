@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A6790EA200FE26D00E2516E /* IntConstant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A6790E8200FE26D00E2516E /* IntConstant.cpp */; };
+		0A181F9C2011211A00CE8726 /* ConstantValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A181F9A2011211A00CE8726 /* ConstantValue.cpp */; };
 		0A6790ED200FE2E200E2516E /* ValueWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A6790EB200FE2E200E2516E /* ValueWord.cpp */; };
 		0F2B6A272009C23200D9A958 /* ThreadTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F2B6A252009C23200D9A958 /* ThreadTests.cpp */; };
 		0F3130112008696A006AE096 /* SystemState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F31300F2008696A006AE096 /* SystemState.cpp */; };
@@ -33,8 +33,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0A6790E8200FE26D00E2516E /* IntConstant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IntConstant.cpp; path = YAF/coreVocab/IntConstant.cpp; sourceTree = SOURCE_ROOT; };
-		0A6790E9200FE26D00E2516E /* IntConstant.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IntConstant.hpp; path = YAF/coreVocab/IntConstant.hpp; sourceTree = SOURCE_ROOT; };
+		0A181F9A2011211A00CE8726 /* ConstantValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantValue.cpp; sourceTree = "<group>"; };
+		0A181F9B2011211A00CE8726 /* ConstantValue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantValue.hpp; sourceTree = "<group>"; };
 		0A6790EB200FE2E200E2516E /* ValueWord.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ValueWord.cpp; path = YAF/coreVocab/ValueWord.cpp; sourceTree = SOURCE_ROOT; };
 		0A6790EC200FE2E200E2516E /* ValueWord.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ValueWord.hpp; path = YAF/coreVocab/ValueWord.hpp; sourceTree = SOURCE_ROOT; };
 		0F2B6A252009C23200D9A958 /* ThreadTests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadTests.cpp; sourceTree = "<group>"; };
@@ -72,10 +72,10 @@
 		0F2B6A282009C66300D9A958 /* coreVocab */ = {
 			isa = PBXGroup;
 			children = (
-				0A6790E8200FE26D00E2516E /* IntConstant.cpp */,
-				0A6790E9200FE26D00E2516E /* IntConstant.hpp */,
 				0A6790EB200FE2E200E2516E /* ValueWord.cpp */,
 				0A6790EC200FE2E200E2516E /* ValueWord.hpp */,
+				0A181F9A2011211A00CE8726 /* ConstantValue.cpp */,
+				0A181F9B2011211A00CE8726 /* ConstantValue.hpp */,
 			);
 			path = coreVocab;
 			sourceTree = "<group>";
@@ -224,7 +224,7 @@
 				0F5BC6752006D39100ABB654 /* CompositeWord.cpp in Sources */,
 				0F5D9CE220071D4F00EF1D89 /* LoggingWord.cpp in Sources */,
 				0F2B6A272009C23200D9A958 /* ThreadTests.cpp in Sources */,
-				0A6790EA200FE26D00E2516E /* IntConstant.cpp in Sources */,
+				0A181F9C2011211A00CE8726 /* ConstantValue.cpp in Sources */,
 				0A6790ED200FE2E200E2516E /* ValueWord.cpp in Sources */,
 				0F5BC6611FFF3C0900ABB654 /* main.cpp in Sources */,
 				0F5BC66C2006CF5700ABB654 /* Stack.cpp in Sources */,
