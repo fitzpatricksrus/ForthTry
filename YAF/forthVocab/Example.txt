@@ -36,8 +36,29 @@ CHARACTER Variable myChar
 someValue myChar c=
 myChar c@ .
 
-: [] ( arrayAddr ndx -- itemAddr )
 
+// A code block [ code ] always pushes itself on the stack when it is executed by the
+// interpreter as a thread. The "execute" word will actually execute the blocks contents
+
+switch case [ condition ] [ action ] case [ condition ] [ action ] endswitch
+[ condition ] if [ action ]
+[ condition ] [ action ] if
+
+[ condition ] if: [ action1 ] else:
+
+// [ condition ] ifTrue: [ action1] ifFalse: [ action2 ]
+[ condition ] [ action1 ] [ action2 ] if:else:()
+
+// [ condition ] whiletrue: [ action ]
+[ condition ] [ action ] whileTrue:()
+
+// [ condition ] repeatUntilFalse: [ action ]
+[ condition ] [ action ] repeatUntilFalse:()
+
+// start to: finish do: [ action ]
+start finish [ action ] to:do:()
+
+// ---------------------------------------------------
 
 ( Outer interpreter )
 
@@ -60,18 +81,36 @@ myChar c@ .
 : drop()
 	primative ### ;
 
+: emitChar() ( char -- )
+	primative ### ;
+
+: readChar() ( -- char )
+	primative ### ;
+
+: [
+	primative ### ;
+
+: whileTrue:
+	primative ### ;
+
+: if:else:
+	primative ### ;
+
+: CHARACTER 1 ;
+
+: Array
+
+: Variable
+
+
 CHARACTER 256 Array inputBuffer
+CHARACTER Variable systemRunning
 
 : (
 	[ readChar() 41 != ] whileTrue: [ ]
 ;
 
-: whiletrue()
-: systemRunning
-
-: inputBuffer
 : isNumber()
-: ifElse()
 : parseNumber()
 : findWord()
 
@@ -80,9 +119,6 @@ CHARACTER 256 Array inputBuffer
 	[ over() c! 1 + ]
 	drop()
 ;
-
-: emitChar ( char -- )
-	primative ### ;
 
 : emit() ( stringAddr -- )
 	[ dup c@ 0 != ]	whileTrue: [		( is current character a string terminator, 0x00? )
@@ -107,27 +143,6 @@ CHARACTER 256 Array inputBuffer
 		]
 	]
 ;
-
-// A code block [ code ] always pushes itself on the stack when it is executed by the
-// interpreter as a thread. The "execute" word will actually execute the blocks contents
-
-switch case [ condition ] [ action ] case [ condition ] [ action ] endswitch
-[ condition ] if [ action ]
-[ condition ] [ action ] if
-
-[ condition ] if: [ action1 ] else:
-
-// [ condition ] ifTrue: [ action1] ifFalse: [ action2 ]
-[ condition ] [ action1 ] [ action2 ] if:else:()
-
-// [ condition ] whiletrue: [ action ]
-[ condition ] [ action ] whileTrue:()
-
-// [ condition ] repeatUntilFalse: [ action ]
-[ condition ] [ action ] repeatUntilFalse:()
-
-// start to: finish do: [ action ]
-start finish [ action ] to:do:()
 
 
 
