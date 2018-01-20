@@ -1,6 +1,8 @@
 //
 
 
+// http://www.murphywong.net/hello/simple.htm#L10
+
 : CCells ( ndx -- size ) ;
 : ICells 2 * ;
 : LCells 4 * ;
@@ -63,23 +65,39 @@ start finish [ action ] to:do:()
 ( Outer interpreter )
 
 
+: @
+	primative ### ;
+
+: !  ( vaule addr -- )
+	primative ### ;
+
 : c@
 	primative ### ;
 
-: c!
+: c!  ( vaule addr -- )
 	primative ### ;
 
 : execute()
 	primative ### ;
 
-: dup()
+: pick()
 	primative ### ;
 
-: over()
+: rot()
 	primative ### ;
+
+: dup()
+	0 pick() ;
+
+: over()
+	1 pick() ;
 
 : drop()
 	primative ### ;
+: 2Drop()
+	drop() drop();
+: 3Drop()
+	2Drop() drop();
 
 : emitChar() ( char -- )
 	primative ### ;
@@ -96,28 +114,55 @@ start finish [ action ] to:do:()
 : if:else:
 	primative ### ;
 
+
 : CHARACTER 1 ;
 
 : Array
 
 : Variable
 
-
-CHARACTER 256 Array inputBuffer
-CHARACTER Variable systemRunning
-
-: (
-	[ readChar() 41 != ] whileTrue: [ ]
+: readUntilCharacter() ( buffer char -- )
+	[ readChar() 2dup != ] whileTrue:
+	[				( buffer char inputChar -- )
+		rot()		( char inputChar buffer )
+		2dup		( char inputChar buffer inputChar buffer )
+		c! 1+		( char inputChar buffer )
+		rot()		( inputChar buffer char )
+		rot()		( buffer char inputChar )
+		drop()		( buffer char )
+	] ( buffer char inputChar -- )
+	3drop();
 ;
 
-: isNumber()
-: parseNumber()
+: (
+	[ readChar() 41 != ] whileTrue: [ ] ( 41 is a right paren )
+;
+
+: isNumberChar() ( char -- bool )
+	[ [ dup 0 >= ] or: [ dup 9 <=] ] if: [
+		drop()
+		1
+	] else: [
+		drop()
+		0
+	]
+;
+
+: parseNumber()	( inputBuffer -- value )
+	0
+	[ inputBuffer c@ ] whileTrue: [		( inputBuffer value )
+		inputBuffer c@ 48 -	+			( inputBuffer value )
+		swap 1+ swap
+	]
+;
+
 : findWord()
 
+: readToken()
+
+
 : " ( inputBufferAddr -- )
-	[ readChar() dup() 34 != ] whileTrue:
-	[ over() c! 1 + ]
-	drop()
+	34 readUntilCharacter() ( 34 is a quoate character)
 ;
 
 : emit() ( stringAddr -- )
@@ -127,10 +172,13 @@ CHARACTER Variable systemRunning
 	]
 ;
 
+CHARACTER Variable systemRunning
+CHARACTER 256 Array inputBuffer
+
 : OuterInterp
 	[ systemRunning c@ ] whileTrue: [
 		inputBuffer readToken()
-		[ inputBuffer c@ isNumber() ] if: [
+		[ inputBuffer c@ isNumberChar() ] if: [
 			inputBuffer parseNumber()
 		] else: [
 			( not a mumber, so it must be a word )
