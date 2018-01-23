@@ -65,6 +65,24 @@ start finish [ action ] to:do:()
 : readCharExt()
 	( read a character from external input )
 	primative ### ;
+: c@
+: c!
+: ==
+: pick
+: return
+: drop
+: swap
+
+: TOS ;
+: dup 0 pick ;
+: false 0 ;
+: true 255 ;
+: not [ TOS ] if: [ false ] else: [ true ]
+: != == not ;
+: 2dup 1 pick 1 pick ;
+: 1+ 1 + ;
+: 2drop drop drop ;
+: over 1 pick ;
 
 : charInString() ( char string -- bool )
 	( search a string to see if it contains the specified character )
@@ -79,6 +97,21 @@ start finish [ action ] to:do:()
 	]
 	2drop							( )
 	false							( false )
+;
+
+: charNotInString() ( char string -- bool )
+	( search a string to see if it contains the specified character )
+	charInString() not
+;
+
+: popReverseString() ( 0...char addr -- )
+	( pop a string off the stack to a buffer )
+	[ over ] while: [
+		2dup
+		c!
+		1+
+	]
+	2drop
 ;
 
 : readCharExtUntil ( stringOfStopCharacters inputBuffer -- stopChar )
@@ -96,6 +129,9 @@ start finish [ action ] to:do:()
 	0 swap c!							( ssc char )
 	swap drop							( char )
 ;
+
+CHARACTER 256 ARRAY TOKEN_SEPERATORS ( characters that signal end of token - all control chars, space, adn delete )
+	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 222 23 24 25 26 27 28 29 30 31 32 127 TOKEN_SEPERATORS popReverseString()
 
 CHARACTER 256 ARRAY extInputBuffer
 INTEGER VARIABLE extInputPosition 0 extInputPosition !
