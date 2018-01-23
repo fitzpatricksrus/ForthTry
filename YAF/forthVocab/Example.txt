@@ -61,9 +61,51 @@ switch case [ condition ] [ action ] case [ condition ] [ action ] endswitch
 start finish [ action ] to:do:()
 
 // ---------------------------------------------------
+// input routines
+: readCharExt()
+	( read a character from external input )
+	primative ### ;
+
+: charInString ( char string -- bool )
+	( search a string to see if it contains the specified character )
+	[ dup c@ 0 != ] while: [		( char string )
+		[ 2dup c@ == ] if: [		( char string )
+		  swap						( string char )
+		  drop						( string )
+		  return					( string )
+		] else [
+		  1+						( char string+1 )
+		]
+	]
+	2drop							( )
+	false							( false )
+;
+
+: readCharExtUntil ( stringOfStopCharacters inputBuffer -- stopCharFound )
+	( fill the input buffer with characters until a stop character is reached )
+	[ readCharExt() over
+
+
+
+CHARACTER 256 ARRAY extInputBuffer
+INTEGER VARIABLE extInputPosition 0 extInputPosition !
+: nextExtInputChar ( -- char )
+	( return the next character in extInputBuffer, filling the buffer if needed)
+CHARACTER 256 ARRAY tokenBuffer
+: currentToken ( -- addr )
+	( return a pointer to the current token )
+: nextToken ( - addr )
+	( read a new token from the input stream and return a pointer to it )
+
+
+
+// ---------------------------------------------------
 
 ( Outer interpreter )
 
+
+: return
+	primative ### ;
 
 : @
 	primative ### ;
@@ -102,7 +144,7 @@ start finish [ action ] to:do:()
 : emitChar() ( char -- )
 	primative ### ;
 
-: readChar() ( -- char )
+: readChar() ( -- char ) ( read a character from external input )
 	primative ### ;
 
 : [
@@ -132,6 +174,7 @@ start finish [ action ] to:do:()
 		drop()		( buffer char )
 	] ( buffer char inputChar -- )
 	3drop();
+	inputBuffer 0 c!	( zero terminate token )
 ;
 
 : (
@@ -149,16 +192,17 @@ start finish [ action ] to:do:()
 ;
 
 : parseNumber()	( inputBuffer -- value )
-	0
-	[ inputBuffer c@ ] whileTrue: [		( inputBuffer value )
-		inputBuffer c@ 48 -	+			( inputBuffer value )
-		swap 1+ swap
+	0									( inputBuffer 0)
+	[ over() c@ ] whileTrue: [			( inputBuffer value )
+		over() c@ 48 -	+				( inputBuffer value )
+		swap 1+ swap					( inputBuffer+1 value)
 	]
-;
+; ( inputBuffer+n value )
 
 : findWord()
 
-: readToken()
+: currentToken()
+: nextToken()
 
 
 : " ( inputBufferAddr -- )
@@ -166,9 +210,9 @@ start finish [ action ] to:do:()
 ;
 
 : emit() ( stringAddr -- )
-	[ dup c@ 0 != ]	whileTrue: [		( is current character a string terminator, 0x00? )
-		dup c@ emitChar()		( emit the character )
-		1 +						( move the pointer to the next character )
+	[ dup c@ 0 != ]	whileTrue: [	( is current character a string terminator, 0x00? )
+		dup c@ emitChar()			( emit the character )
+		1 +							( move the pointer to the next character )
 	]
 ;
 
