@@ -66,7 +66,7 @@ start finish [ action ] to:do:()
 	( read a character from external input )
 	primative ### ;
 
-: charInString ( char string -- bool )
+: charInString() ( char string -- bool )
 	( search a string to see if it contains the specified character )
 	[ dup c@ 0 != ] while: [		( char string )
 		[ 2dup c@ == ] if: [		( char string )
@@ -81,11 +81,21 @@ start finish [ action ] to:do:()
 	false							( false )
 ;
 
-: readCharExtUntil ( stringOfStopCharacters inputBuffer -- stopCharFound )
+: readCharExtUntil ( stringOfStopCharacters inputBuffer -- stopChar )
 	( fill the input buffer with characters until a stop character is reached )
-	[ readCharExt() over
-
-
+	[ readCharExt()						( ssc ib char )
+		dup								( ssc ib char char )
+		2 pick							( ssc ib char char ssc )
+		charInString() not				( ssc ib char bool )
+	] while: [							( ssc ib char )
+		over							( ssc ib char ib )
+		c!								( ssc ib )
+		1+								( ssc ib+1 )
+	]									( ssc ib char )
+	swap								( ssc char ib )
+	0 swap c!							( ssc char )
+	swap drop							( char )
+;
 
 CHARACTER 256 ARRAY extInputBuffer
 INTEGER VARIABLE extInputPosition 0 extInputPosition !
