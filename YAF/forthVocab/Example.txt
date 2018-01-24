@@ -68,30 +68,47 @@ start finish [ action ] to:do:()
 : c@
 : c!
 : ==
-: pick
+: pick ( a0 .. an n -- a0 .. an a0 )
+: roll ( a0 .. an n -- a1 .. an a0 )
 : return
 : drop
-: swap
+: while:
 
+: dup  0 pick ;
+: over 1 pick ;
+: swap 1 roll ;
+: rot  2 roll ;
+: nip  ( a b -- b )       swap drop ;
+: -rot ( a b c -- c a b ) rot rot ;
+: tuck ( a b -- b a b )   dup -rot ;
+: over ( a b -- a b a )   swap tuck ;
 : TOS ;
-: dup 0 pick ;
 : false 0 ;
-: true 255 ;
+: true 1 ;
+: if:else:		( condition trueBlk falseBlk )
+	2 pick		( condition trueBlk falseBlk condition )
+	execute		( condition trueBlk falseBlk bool )
+	pick		( condition trueBlk falseBlk blk )
+	3 roll		( blk condition trueBlk falseBlk )
+	2drop drop	( blk )
+	execute()	( ? )
+;
+: if: [] if:else: ;
 : not [ TOS ] if: [ false ] else: [ true ]
 : != == not ;
 : 2dup 1 pick 1 pick ;
 : 1+ 1 + ;
 : 2drop drop drop ;
-: over 1 pick ;
+: asBool() [ TOS 0 != ] if: [ true ] else: [ false ]
 
 : charInString() ( char string -- bool )
 	( search a string to see if it contains the specified character )
-	[ dup c@ 0 != ] while: [		( char string )
+	[ dup c@ asBool() ] while: [	( char string )
 		[ 2dup c@ == ] if: [		( char string )
 		  swap						( string char )
 		  drop						( string )
 		  return					( string )
-		] else [
+		] else: [
 		  1+						( char string+1 )
 		]
 	]
@@ -106,7 +123,7 @@ start finish [ action ] to:do:()
 
 : popReverseString() ( 0...char addr -- )
 	( pop a string off the stack to a buffer )
-	[ over ] while: [
+	[ over asBool() ] while: [
 		2dup
 		c!
 		1+
