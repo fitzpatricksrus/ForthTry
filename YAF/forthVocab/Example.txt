@@ -160,8 +160,6 @@ CHARACTER 256 ARRAY tokenBuffer
 : nextToken ( - addr )
 	( read a new token from the input stream and return a pointer to it )
 
-
-
 // ---------------------------------------------------
 
 ( Outer interpreter )
@@ -298,6 +296,70 @@ CHARACTER 256 Array inputBuffer
 		]
 	]
 ;
+
+
+: interpret
+	begin
+		#tib @ >in @ =
+		if
+			tib 50 accept #tib ! 0 >in !
+		then
+		32 word find dup
+		if
+			state @ =
+			if
+				,
+			else
+				execute
+			then
+		else
+			dup rot count >number
+			if
+				state @
+				if
+					last @ dup @ last ! dp !
+				then
+				abort
+			then
+			drop drop state @
+			if
+				['] lit , ,
+			then
+		then
+	again
+;
+
+: interpret
+	do {
+		if (inputPos == tib.length) {					//	#tib @ >in @ =
+			accept(tib, 50);							//	tib 50 accept #tib ! 0 >in !
+			inputPos = 0;
+		}
+		String tokenString = word(tib, inputPos, 32);	// 32 word find dup
+		Token token = find(tokenString);
+		if (token != null) {
+			if (currentMode == token.getMode()) {		// state @ =
+				compile(token);
+			} else {
+				execute(token);
+			}
+		} else {
+			if (!token.isNumber()) {					// dup rot count >number
+				if	(currentMode == COMPILE_MODE) {		// state @
+					compileFailed();					// last @ dup @ last ! dp !
+				}
+				abort();
+			}
+														// drop drop
+			if (currentMode == COMPILE_MODE) {			// state @
+				compileLiternalNumber(token);			// ['] lit , ,
+			} else {
+				push(token.asNumber());
+			}
+		then
+	} while (true);
+;
+
 
 
 
