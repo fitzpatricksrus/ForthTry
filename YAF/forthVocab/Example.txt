@@ -1,6 +1,12 @@
 //
 
 
+
+words should know how many paramters they take and how many values
+they return.  That way we can make stack frames and make reasonable
+temp variables on the stack if needed.
+
+
 // http://www.murphywong.net/hello/simple.htm#L10
 
 : CCells ( ndx -- size ) ;
@@ -298,6 +304,128 @@ CHARACTER 256 Array inputBuffer
 ;
 
 
+// -- ForthTry
+
+: msg() ( args -- ? )
+	{ msg }	// compiles into this
+: msg: ( target params -- )
+	{ params target msg: }
+: msg1:msg2: ( target param1 param2 }
+	{ target param1 param2 msg1:msg2: }
+; ( taget1 msg1: ( target2 msg2: param1 msg3() ) msg4: param4 ) msg5()
+	{ target1 target2 param1 msg3() msg2: msg1: param4 msg4:  msg5() }
+
+: set: ( addr value -- )
+tib
+tib.position
+tib.length
+: accept: ( addr length -- lengthAccepted )
+: while: ( condBlock bodyBlock -- )
+: if: ( condBlock bodyBlock -- )
+: if:else ( condBlock trueBlock falseBlock -- )
+: word()
+: find()
+: dup()
+: rot()
+: count()
+: TOS
+state
+: compileTOS()
+: evaluate()
+: parseNumber()
+: compileFailed()
+: compileLiteral()
+: true
+: abort()
+0
+32
+50
+
+
+: interpret
+	[ true ] while : [
+		[ tib.length @ tib.position @ == ] if: [
+			tib.length set: ( tib accept: 50 )
+			tib.position set: 0
+		]
+		[ 32 word() find() dup() ] if: [		// wordAddr flag
+			[ state @ == ] if: [					// wordAddr
+				TOS compileTOS()					// -
+			] else: [
+				TOS evaluate()						// -
+			]
+		] else: [								// wordAddr flag
+			[ dup()									// wordAddr flag flag
+			rot()									// flag flag wordAddr
+			count()									// flag flag word count
+			parseNumber() ] if: [					// flag flag number bool
+				[ state @ ] if: [
+					compileFailed()
+				]
+				abort()
+			] else: [
+				drop() drop()
+				[ state @ ] if: [
+					compileLiteral()
+				]
+			]
+		]
+	]
+;
+
+: interpret
+	[ true ]											( -- true )
+	[													( -- )
+		[ tib.length @ tib.position @ == ]					( bool )
+		[													( -- )
+			tib 50 accept()										( length )
+			tib.length !										( )
+			0 tib.position !									( )
+		]													( -- )
+		if:												( bool -- )
+
+		[												( )
+			32 word											( -- addr )
+			find											( addr -- word flag )
+			dup												( word flag -- word flag flag )
+		]
+		[												( word flag -- )
+			[ state @ == ]									( word flag -- word )
+			[
+				compileTOS()
+			]											()
+			[
+				evaluate()
+			]
+			if:else:									( flag -- )
+		]
+		[
+			[ dup rot count >number ]
+			[
+				[ state @ ]
+				[
+					( last @ dup @ last ! dp ! )
+					compileFailed()
+				]
+				if:
+				abort()
+			]
+			[
+				drop() drop()
+				[ state @ ]
+				[ ['] lit , , ]
+				if:
+			]
+			if:else:
+		]
+		if:else:
+	]
+	while :
+;
+
+
+// -- Forth
+
 : interpret
 	begin
 		#tib @ >in @ =
@@ -328,6 +456,8 @@ CHARACTER 256 Array inputBuffer
 		then
 	again
 ;
+
+// -- C
 
 : interpret
 	do {
