@@ -83,25 +83,9 @@
 		0F2B6A2A200BD8EB00D9A958 /* forthVocab */ = {
 			isa = PBXGroup;
 			children = (
-				0F2B6A2C200BD91300D9A958 /* interpVocab */,
-				0F2B6A2B200BD8FB00D9A958 /* compilerVocab */,
 				0F2B6A2D200BD95800D9A958 /* Example.txt */,
 			);
 			path = forthVocab;
-			sourceTree = "<group>";
-		};
-		0F2B6A2B200BD8FB00D9A958 /* compilerVocab */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = compilerVocab;
-			sourceTree = "<group>";
-		};
-		0F2B6A2C200BD91300D9A958 /* interpVocab */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = interpVocab;
 			sourceTree = "<group>";
 		};
 		0F313012200886D6006AE096 /* tests */ = {
@@ -144,6 +128,8 @@
 		0F5BC65F1FFF3C0900ABB654 /* YAF */ = {
 			isa = PBXGroup;
 			children = (
+				0F600DC2201AC8ED00F88147 /* forthVocab */,
+				0F600DC1201AC8D300F88147 /* coreVocab */,
 				0F2B6A2A200BD8EB00D9A958 /* forthVocab */,
 				0F2B6A282009C66300D9A958 /* coreVocab */,
 				0F31301320088779006AE096 /* utilVocab */,
@@ -160,6 +146,22 @@
 				0F5BC66E2006CFD300ABB654 /* Word.hpp */,
 			);
 			path = YAF;
+			sourceTree = "<group>";
+		};
+		0F600DC1201AC8D300F88147 /* coreVocab */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = coreVocab;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		0F600DC2201AC8ED00F88147 /* forthVocab */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = forthVocab;
+			path = "New Group1";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
