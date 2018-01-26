@@ -315,61 +315,62 @@ CHARACTER 256 Array inputBuffer
 ; ( taget1 msg1: ( target2 msg2: param1 msg3() ) msg4: param4 ) msg5()
 	{ target1 target2 param1 msg3() msg2: msg1: param4 msg4:  msg5() }
 
-: set: ( addr value -- )
 tib
 tib.position
-tib.length
-: accept: ( addr length -- lengthAccepted )
+state
+@
+: not
+: strLength()
+: set: ( addr value -- )
+: true ( -- 1 )
+: accept: ( addr length -- ) 	//reads counted string
 : while: ( condBlock bodyBlock -- )
 : if: ( condBlock bodyBlock -- )
 : if:else ( condBlock trueBlock falseBlock -- )
-: word()
-: find()
+: parseToken() ( char -- strAddr )
+: find() ( strAddr -- wordAddr bool )
+: flags() ( wordAddr -- flags )
+: parseNumber() ( strAddr -- number bool )
 : dup()
-: rot()
-: count()
+: swap()
 : TOS
-state
 : compileTOS()
 : evaluate()
-: parseNumber()
 : compileFailed()
 : compileLiteral()
-: true
 : abort()
 0
 32
-50
+256
 
 
 : interpret
-	[ true ] while : [
-		[ tib.length @ tib.position @ == ] if: [
-			tib.length set: ( tib accept: 50 )
-			tib.position set: 0
+	[ true ] while: [
+		[ token strLength() == 0 ] if: [
+			tib accept: 256
+			tib tokenize: 32
+			token set: tib
 		]
-		[ 32 word() find() dup() ] if: [		// wordAddr flag
-			[ state @ == ] if: [					// wordAddr
+		[ token find() if: [					// wordAddr
+			[ dup() flags() state @ == ] if: [		// wordAddr
 				TOS compileTOS()					// -
 			] else: [
 				TOS evaluate()						// -
 			]
-		] else: [								// wordAddr flag
-			[ dup()									// wordAddr flag flag
-			rot()									// flag flag wordAddr
-			count()									// flag flag word count
-			parseNumber() ] if: [					// flag flag number bool
-				[ state @ ] if: [
+		] else: [								// wordAddr
+			[ parseNumber() ] if: [				// number
+				[ state @ ] if: [					// number
 					compileFailed()
 				]
+				drop()
 				abort()
-			] else: [
-				drop() drop()
-				[ state @ ] if: [
-					compileLiteral()
+			] else: [								// number
+				[ state @ ] if: [					// number
+					compileLiteral()				// -
 				]
 			]
 		]
+		token set: ( token + strLength() )
 	]
 ;
 
