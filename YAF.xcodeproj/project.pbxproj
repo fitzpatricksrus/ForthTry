@@ -56,6 +56,7 @@
 		0F5D9CE120071D4F00EF1D89 /* LoggingWord.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoggingWord.hpp; sourceTree = "<group>"; };
 		0F5D9CE32007259E00EF1D89 /* ExitSystemWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ExitSystemWord.cpp; sourceTree = "<group>"; };
 		0F5D9CE42007259E00EF1D89 /* ExitSystemWord.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ExitSystemWord.hpp; sourceTree = "<group>"; };
+		0FE272B2201E5CCE009709A3 /* Language.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Language.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				0F2B6A2D200BD95800D9A958 /* Example.txt */,
+				0FE272B2201E5CCE009709A3 /* Language.rtf */,
 			);
 			path = forthVocab;
 			sourceTree = "<group>";
