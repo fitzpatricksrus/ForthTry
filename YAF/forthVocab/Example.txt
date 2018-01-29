@@ -318,8 +318,8 @@ CHARACTER 256 Array inputBuffer
 tib
 tib.position
 state
+token
 @
-: not
 : strLength()
 : set: ( addr value -- )
 : true ( -- 1 )
@@ -343,7 +343,6 @@ state
 32
 256
 
-
 : interpret
 	[ true ] while: [
 		[ token strLength() == 0 ] if: [
@@ -351,8 +350,8 @@ state
 			tib tokenize: 32
 			token set: tib
 		]
-		[ token find() if: [					// wordAddr
-			[ dup() flags() state @ == ] if: [		// wordAddr
+		[ token find() ] if: [					// wordAddr
+			[ dup() flags() == state @ ] if: [		// wordAddr
 				TOS compileTOS()					// -
 			] else: [
 				TOS evaluate()						// -
