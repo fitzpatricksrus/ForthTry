@@ -54,7 +54,7 @@ POINTER VARIABLE token\
 \
 tib set: 0\
 token set: tib\
-state 0 set: 0\
+state set: 0\
 \
 : interpret\
 	[ true ] while: [\
@@ -85,6 +85,56 @@ state 0 set: 0\
 		token set: ( ( token @ ) + strLength() )\
 	]\
 ;\
+\
+\
+tib 0 set: \
+token tib set:\
+state 0 set:\
+: interpretPostfix\
+	[ true ] \
+	[\
+		[ token strLength() 0 == ] \
+		[\
+			tib 256 accept: \
+			tib 32 tokenize: \
+			token tib set: \
+		] \
+		if: \
+\
+		[ token @ find() ] \
+		[									// wordAddr\
+			[ dup() flags() state @ == ] \
+			[ compileTOS() ] \
+			[ evaluate() ]\
+			if:else:\
+		] \
+		[									// wordAddr\
+			[ parseNumber() ] \
+			[								// number\
+				[ state @ ] \
+				[ compileFailed() ]\
+				if:\
+				drop()\
+				abort()\
+			] \
+			[								// number\
+				[ state @ ]\
+				[ compileLiteral() ]\
+				if:\
+			]\
+			if:else:\
+		]\
+		if:else:\
+\
+		token \
+		token @ strLength() +\
+		set: \
+	] \
+	while:\
+;\
+\
+\
+\
 \
 \
 }
