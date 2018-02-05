@@ -8,11 +8,13 @@
 
 #include <iostream>
 #include "ThreadTests.hpp"
+#include "TokenIteratorTest.hpp"
 
 int main(int argc, const char * argv[]) {
     // insert code here...
 	
-	ThreadTests::doTest();
+	TokenIteratorTest::doTest();
+//	ThreadTests::doTest();
 
 	return 0;
 }

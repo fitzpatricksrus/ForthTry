@@ -20,6 +20,7 @@
 		0F5D9CE52007259E00EF1D89 /* ExitSystemWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D9CE32007259E00EF1D89 /* ExitSystemWord.cpp */; };
 		0FA9D5C420262E72003D25E7 /* InputIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9D5C220262E72003D25E7 /* InputIterator.cpp */; };
 		0FA9D5C7202642EA003D25E7 /* TokenIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9D5C5202642EA003D25E7 /* TokenIterator.cpp */; };
+		0FA9D5CA20280EB8003D25E7 /* TokenIteratorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9D5C820280EB8003D25E7 /* TokenIteratorTest.cpp */; };
 		0FE272B520211984009709A3 /* BootParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FE272B320211984009709A3 /* BootParser.cpp */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,8 @@
 		0FA9D5C320262E72003D25E7 /* InputIterator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputIterator.hpp; sourceTree = "<group>"; };
 		0FA9D5C5202642EA003D25E7 /* TokenIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TokenIterator.cpp; sourceTree = "<group>"; };
 		0FA9D5C6202642EA003D25E7 /* TokenIterator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TokenIterator.hpp; sourceTree = "<group>"; };
+		0FA9D5C820280EB8003D25E7 /* TokenIteratorTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TokenIteratorTest.cpp; sourceTree = "<group>"; };
+		0FA9D5C920280EB8003D25E7 /* TokenIteratorTest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TokenIteratorTest.hpp; sourceTree = "<group>"; };
 		0FE272B2201E5CCE009709A3 /* Language.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Language.rtf; sourceTree = "<group>"; };
 		0FE272B320211984009709A3 /* BootParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BootParser.cpp; sourceTree = "<group>"; };
 		0FE272B420211984009709A3 /* BootParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BootParser.hpp; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				0F5BC6601FFF3C0900ABB654 /* main.cpp */,
 				0F2B6A252009C23200D9A958 /* ThreadTests.cpp */,
 				0F2B6A262009C23200D9A958 /* ThreadTests.hpp */,
+				0FA9D5C820280EB8003D25E7 /* TokenIteratorTest.cpp */,
+				0FA9D5C920280EB8003D25E7 /* TokenIteratorTest.hpp */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				0F5BC6752006D39100ABB654 /* CompositeWord.cpp in Sources */,
 				0F5D9CE220071D4F00EF1D89 /* LoggingWord.cpp in Sources */,
 				0F2B6A272009C23200D9A958 /* ThreadTests.cpp in Sources */,
+				0FA9D5CA20280EB8003D25E7 /* TokenIteratorTest.cpp in Sources */,
 				0A181F9C2011211A00CE8726 /* ConstantValue.cpp in Sources */,
 				0A6790ED200FE2E200E2516E /* ValueWord.cpp in Sources */,
 				0F5BC6611FFF3C0900ABB654 /* main.cpp in Sources */,

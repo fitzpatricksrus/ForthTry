@@ -65,7 +65,7 @@ static string parseToken(InputIterator& inputIter, int inputMask) {
 
 static string parseIdentifier(InputIterator& inputIter) {
 	// letter, numeral, leftparen, rightparen
-	static int inputMask = InputIterator::LETTER | InputIterator::NUMERAL;
+	static int inputMask = InputIterator::LETTER | InputIterator::NUMERAL | InputIterator::COLON;
 	return parseToken(inputIter, inputMask);
 }
 
@@ -90,14 +90,23 @@ void TokenIterator::nextToken() {
 	switch (inputIter.peekType()) {
 	case InputIterator::LETTER:
 		tokenText = parseIdentifier(inputIter);
-		if (inputIter.peekType() == InputIterator::COLON) {
-			tokenText += inputIter.nextChar();
+		if (tokenText.back() == ':') {
 			tokenType = KEYWORD;
 		} else {
 			tokenType = IDENTIFIER;
 		}
 		break;
 	case InputIterator::DASH:
+		tokenText = "-";
+		inputIter.nextChar();
+		if (inputIter.peekType() == InputIterator::NUMERAL) {
+			tokenText += parseNumber(inputIter);
+			tokenType = NUMBER;
+		} else {
+			tokenText += parseOperator(inputIter);
+			tokenType = OPERATOR;
+		}
+		break;
 	case InputIterator::NUMERAL:
 		tokenText = parseNumber(inputIter);
 		tokenType = NUMBER;
