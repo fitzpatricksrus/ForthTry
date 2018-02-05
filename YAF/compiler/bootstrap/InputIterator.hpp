@@ -13,14 +13,26 @@
 
 class InputIterator {
 public:
-	enum CharType { LETTER, NUMERAL, SYMBOL, DASH, LEFTPAREN, RIGHTPAREN, COLON, LEFTBRACKET, RIGHTBRACKET, SEPERATOR, END };
+	enum CharType {
+		END_OF_INPUT = 0x0000,
+		LETTER = 0x0001,
+		NUMERAL = 0x0002,
+		SYMBOL = 0x0004,
+		DASH = 0x0008,
+		LEFTPAREN = 0x0010,
+		RIGHTPAREN = 0x0020,
+		COLON = 0x0040,
+		LEFTBRACKET = 0x0080,
+		RIGHTBRACKET = 0x0100,
+		SEPERATOR = 0x0200
+	};
 
 	InputIterator(std::string text);
-	virtual ~InputIterator();
+	~InputIterator();
 	
 	CharType peekType();
 	char peekChar();
-	void nextChar();
+	char nextChar();
 	
 private:
 	std::string input;

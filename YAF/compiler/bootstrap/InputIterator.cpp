@@ -37,7 +37,7 @@ InputIterator::~InputIterator() {
 
 InputIterator::CharType InputIterator::peekType() {
 	if (inputPos >= input.length()) {
-		return END;
+		return END_OF_INPUT;
 	} else {
 		char c = input[inputPos];
 		if (c <= ' ') {
@@ -71,8 +71,12 @@ char InputIterator::peekChar() {
 	return input[inputPos];
 }
 
-void InputIterator::nextChar() {
+char InputIterator::nextChar() {
 	if (inputPos < input.length()) {
+		char result = input[inputPos];
 		inputPos++;
+		return result;
+	} else {
+		return (char)0;
 	}
 }

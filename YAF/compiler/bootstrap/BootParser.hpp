@@ -21,10 +21,14 @@ public:
 	BootParser(string text);
 	virtual ~BootParser();
 	
-	bool acceptLetter();
-	bool acceptNumeral();
-	bool acceptSymbol();
-	
+	bool acceptNumberBody();
+	bool number();
+	bool acceptOperatorBody();
+	bool acceptOperator();
+	bool acceptIdentifierBody();
+	bool acceptIdentifier();
+	bool acceptKeyword();
+
 	bool nextToken();
 	TokenType getTokenType();
 	string getTokenString();

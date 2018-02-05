@@ -19,6 +19,7 @@
 		0F5D9CE220071D4F00EF1D89 /* LoggingWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D9CE020071D4F00EF1D89 /* LoggingWord.cpp */; };
 		0F5D9CE52007259E00EF1D89 /* ExitSystemWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D9CE32007259E00EF1D89 /* ExitSystemWord.cpp */; };
 		0FA9D5C420262E72003D25E7 /* InputIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9D5C220262E72003D25E7 /* InputIterator.cpp */; };
+		0FA9D5C7202642EA003D25E7 /* TokenIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9D5C5202642EA003D25E7 /* TokenIterator.cpp */; };
 		0FE272B520211984009709A3 /* BootParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FE272B320211984009709A3 /* BootParser.cpp */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,8 @@
 		0F5D9CE42007259E00EF1D89 /* ExitSystemWord.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ExitSystemWord.hpp; sourceTree = "<group>"; };
 		0FA9D5C220262E72003D25E7 /* InputIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InputIterator.cpp; sourceTree = "<group>"; };
 		0FA9D5C320262E72003D25E7 /* InputIterator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputIterator.hpp; sourceTree = "<group>"; };
+		0FA9D5C5202642EA003D25E7 /* TokenIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TokenIterator.cpp; sourceTree = "<group>"; };
+		0FA9D5C6202642EA003D25E7 /* TokenIterator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TokenIterator.hpp; sourceTree = "<group>"; };
 		0FE272B2201E5CCE009709A3 /* Language.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Language.rtf; sourceTree = "<group>"; };
 		0FE272B320211984009709A3 /* BootParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BootParser.cpp; sourceTree = "<group>"; };
 		0FE272B420211984009709A3 /* BootParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BootParser.hpp; sourceTree = "<group>"; };
@@ -137,8 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				0FA9D5C020262E1D003D25E7 /* compiler */,
-				0F600DC2201AC8ED00F88147 /* forthVocab */,
-				0F600DC1201AC8D300F88147 /* coreVocab */,
 				0F2B6A2A200BD8EB00D9A958 /* forthVocab */,
 				0F2B6A282009C66300D9A958 /* coreVocab */,
 				0F31301320088779006AE096 /* utilVocab */,
@@ -157,22 +158,6 @@
 			path = YAF;
 			sourceTree = "<group>";
 		};
-		0F600DC1201AC8D300F88147 /* coreVocab */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = coreVocab;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		0F600DC2201AC8ED00F88147 /* forthVocab */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = forthVocab;
-			path = "New Group1";
-			sourceTree = "<group>";
-		};
 		0FA9D5C020262E1D003D25E7 /* compiler */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +173,8 @@
 				0FE272B420211984009709A3 /* BootParser.hpp */,
 				0FA9D5C220262E72003D25E7 /* InputIterator.cpp */,
 				0FA9D5C320262E72003D25E7 /* InputIterator.hpp */,
+				0FA9D5C5202642EA003D25E7 /* TokenIterator.cpp */,
+				0FA9D5C6202642EA003D25E7 /* TokenIterator.hpp */,
 			);
 			path = bootstrap;
 			sourceTree = "<group>";
@@ -262,6 +249,7 @@
 				0F3130112008696A006AE096 /* SystemState.cpp in Sources */,
 				0FA9D5C420262E72003D25E7 /* InputIterator.cpp in Sources */,
 				0F5D9CE52007259E00EF1D89 /* ExitSystemWord.cpp in Sources */,
+				0FA9D5C7202642EA003D25E7 /* TokenIterator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
