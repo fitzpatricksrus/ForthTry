@@ -24,7 +24,8 @@ public:
 		COLON = 0x0040,
 		LEFTBRACKET = 0x0080,
 		RIGHTBRACKET = 0x0100,
-		SEPERATOR = 0x0200
+		SEPERATOR = 0x0200,
+        TERMINATOR = 0x0400
 	};
 
 	InputIterator(std::string text);

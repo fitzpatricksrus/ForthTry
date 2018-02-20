@@ -58,8 +58,10 @@ InputIterator::CharType InputIterator::peekType() {
 				return RIGHTBRACKET;
 			case '[':
 				return LEFTBRACKET;
-			case '-':
-				return DASH;
+            case '-':
+                return DASH;
+            case ';':
+                return TERMINATOR;
 			default:
 				return SYMBOL;
 			}

@@ -48,6 +48,14 @@ POINTER VARIABLE token\
 : compileFailed()\
 : compileLiteral()\
 : abort()\
+: : // create a new dictionary word and get it ready to compile into\
+	consume next token and push new word onto compile stack\
+: ; // finish pending/compiling dictionary word and add to current dictionary\
+: [	// start compiling a new, unnamed dictionary word\
+	call ":"\
+: ] // finish compiling current dictionary word and compile it as a data word\
+	call ";", compile a word that pushes \
+\
 0\
 32\
 256\
@@ -55,6 +63,33 @@ POINTER VARIABLE token\
 tib set: 0\
 token set: tib\
 state set: 0\
+\
+: MAX_INPUT_LENGTH 255 CONSTANT ;\
+: nextToken() token set: ((token @) + (token @ strLength())) ;\
+: readTokens() \
+	tib accept: MAX_INPUT_LENGTH\
+	tib tokenize: 32\
+	token set: tib ;\
+: commandLineInterp\
+	[ true ] while: [\
+		[ token @ strLength() == 0 ] if: [\
+			readTokens()\
+		]\
+		[ token @ find() ] if: [\
+			nextToken()	\
+			evaluate()\
+		] else: [\
+			[ parseNumber() ] if: [\
+				nextToken()\
+			] else: [\
+				token @ print() \
+				" ?" println()\
+				reset()\
+			]\
+		]\
+	]\
+;\
+\
 \
 : interpret\
 	[ true ] while: [\
@@ -85,6 +120,18 @@ state set: 0\
 		token set: ( ( token @ ) + strLength() )\
 	]\
 ;\
+\
+/*\
+\
+is\
+: word bla ;\
+the same as\
+: word [ bla ] execute() ;\
+?\
+yes, but they compile differently\
+\
+\
+*/\
 \
 \
 tib 0 set: \

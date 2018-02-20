@@ -13,7 +13,7 @@
 LoggingWord::LoggingWord(std::string messageIn, std::string traceName)
 : Word(), message(messageIn), name(traceName) {
 	if (name.empty()) {
-		name = "LogginWord";
+		name = "LoggingWord";
 	}
 }
 

@@ -29,8 +29,8 @@ std::string TokenIterator::getTokenString() {
 
 
 /*
-enum CharType { END_OF_INPUT, NUMBER, OPERATOR, IDENTIFIER, KEYWORD, LEFTPAREN, RIGHTPAREN, LEFTBRACKET, RIGHTBRACKET  };
-enum TokenType { NUMBER, OPERATOR, IDENTIFIER, KEYWORD, LEFTPAREN, RIGHTPAREN, LEFTBRACKET, RIGHTBRACKET END_OF_INPUT };
+enum CharType { END_OF_INPUT, NUMBER, OPERATOR, IDENTIFIER, KEYWORD, LEFTPAREN, RIGHTPAREN, LEFTBRACKET, RIGHTBRACKET, TERMINATOR  };
+enum TokenType { NUMBER, OPERATOR, IDENTIFIER, KEYWORD, LEFTPAREN, RIGHTPAREN, LEFTBRACKET, RIGHTBRACKET, TERMINATOR, END_OF_INPUT };
 
 LETTER = 'a'..'z' | 'A'..'Z'
 NUMERAL = '0'..'9'
@@ -132,6 +132,10 @@ void TokenIterator::nextToken() {
 		tokenText = inputIter.nextChar();
 		tokenType = RIGHTBRACKET;
 		break;
+    case InputIterator::TERMINATOR:
+        tokenText = inputIter.nextChar();
+        tokenType = TERMINATOR;
+        break;
 	case InputIterator::END_OF_INPUT:
 	case InputIterator::SEPERATOR:
 	default:

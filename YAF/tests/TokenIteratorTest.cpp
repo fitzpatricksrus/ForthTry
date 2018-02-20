@@ -24,11 +24,12 @@ static string typeNames[] = {
 	"LEFTPAREN",
 	"RIGHTPAREN",
 	"LEFTBRACKET",
-	"RIGHTBRACKET"
+	"RIGHTBRACKET",
+    "TERMINATOR"
 };
 
 void TokenIteratorTest::doTest() {
-	string input = "   value+=(123+other+Value)toPower:-20- 3 natural:log[kdj23]   ";
+    string input = "   value+=(123+other+Value)toPower:-20- 3 natural:log[kdj23];\n\tthisIsATest foreverDo: [bob; blob]   ";
 	
 	TokenIterator iter(input);
 	
