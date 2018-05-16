@@ -18,6 +18,7 @@
 		0F5BC6752006D39100ABB654 /* CompositeWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F5BC6732006D39100ABB654 /* CompositeWord.cpp */; };
 		0F5D9CE220071D4F00EF1D89 /* LoggingWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D9CE020071D4F00EF1D89 /* LoggingWord.cpp */; };
 		0F5D9CE52007259E00EF1D89 /* ExitSystemWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F5D9CE32007259E00EF1D89 /* ExitSystemWord.cpp */; };
+		0FA510EC20436EF600D150C3 /* NextTokenWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA510EA20436EF600D150C3 /* NextTokenWord.cpp */; };
 		0FA9D5C420262E72003D25E7 /* InputIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9D5C220262E72003D25E7 /* InputIterator.cpp */; };
 		0FA9D5C7202642EA003D25E7 /* TokenIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9D5C5202642EA003D25E7 /* TokenIterator.cpp */; };
 		0FA9D5CA20280EB8003D25E7 /* TokenIteratorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9D5C820280EB8003D25E7 /* TokenIteratorTest.cpp */; };
@@ -60,6 +61,8 @@
 		0F5D9CE120071D4F00EF1D89 /* LoggingWord.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoggingWord.hpp; sourceTree = "<group>"; };
 		0F5D9CE32007259E00EF1D89 /* ExitSystemWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ExitSystemWord.cpp; sourceTree = "<group>"; };
 		0F5D9CE42007259E00EF1D89 /* ExitSystemWord.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ExitSystemWord.hpp; sourceTree = "<group>"; };
+		0FA510EA20436EF600D150C3 /* NextTokenWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NextTokenWord.cpp; sourceTree = "<group>"; };
+		0FA510EB20436EF600D150C3 /* NextTokenWord.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NextTokenWord.hpp; sourceTree = "<group>"; };
 		0FA9D5C220262E72003D25E7 /* InputIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InputIterator.cpp; sourceTree = "<group>"; };
 		0FA9D5C320262E72003D25E7 /* InputIterator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputIterator.hpp; sourceTree = "<group>"; };
 		0FA9D5C5202642EA003D25E7 /* TokenIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TokenIterator.cpp; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				0FA9D5C320262E72003D25E7 /* InputIterator.hpp */,
 				0FA9D5C5202642EA003D25E7 /* TokenIterator.cpp */,
 				0FA9D5C6202642EA003D25E7 /* TokenIterator.hpp */,
+				0FA510EA20436EF600D150C3 /* NextTokenWord.cpp */,
+				0FA510EB20436EF600D150C3 /* NextTokenWord.hpp */,
 			);
 			path = bootstrap;
 			sourceTree = "<group>";
@@ -210,7 +215,7 @@
 		0F5BC6551FFF3C0800ABB654 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Dad;
 				TargetAttributes = {
 					0F5BC65C1FFF3C0900ABB654 = {
@@ -255,6 +260,7 @@
 				0F3130112008696A006AE096 /* SystemState.cpp in Sources */,
 				0FA9D5C420262E72003D25E7 /* InputIterator.cpp in Sources */,
 				0F5D9CE52007259E00EF1D89 /* ExitSystemWord.cpp in Sources */,
+				0FA510EC20436EF600D150C3 /* NextTokenWord.cpp in Sources */,
 				0FA9D5C7202642EA003D25E7 /* TokenIterator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,6 +282,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -283,6 +290,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -331,6 +339,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -338,6 +347,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

@@ -6,7 +6,84 @@
 \deftab543
 \pard\tx543\pardeftab543\pardirnatural\partightenfactor0
 
-\f0\fs22 \cf2 \cb3 // -- ForthTry\
+\f0\fs22 \cf2 \cb3 \
+<PushIntegerConstant>\
+<PushVariableAddress>\
+<PushClosure>\
+CHARACTER\
+ARRAY\
+VARIABLE\
+set:\
+dup\
+c@\
+!=\
+while:\
++\
+swap\
+-\
+@\
+==\
+if:\
+if:else:\
+readTokens()\
+evaluate()\
+parseNumber()\
+nextToken()\
+print()\
+println()\
+reset()\
+"\
+\
+-----------\
+\
+CHARACTER 256 ARRAY tib\
+tib set: 0\
+VARIABLE token\
+token set: tib\
+VARIABLE keepRunningCommandLineInterp\
+keepRunningCommandLineInterp set: true\
+\
+\
+/* return the length of a null terminated string */\
+: strLength() // addr -- length\
+	dup\
+	[ dup c@ != 0 ] while: [\
+		1 +\
+	]\
+	swap -\
+;\
+: nextToken() token set: ((token @) + (token @ strLength())) ;\
+: MAX_INPUT_LENGTH 255 ;\
+: readTokens() \
+	tib accept: MAX_INPUT_LENGTH\
+	tib tokenize: 32\
+	token set: tib ;\
+: commandLineInterp\
+	[ keepRunningCommandLineInterp @ ] while: [\
+		[ token @ strLength() == 0 ] if: [\
+			readTokens()\
+		]\
+		[ token @ find() ] if: [\
+			nextToken()\
+			evaluate()\
+		] else: [\
+			[ parseNumber() ] if: [\
+				nextToken()\
+			] else: [\
+				token @ print() \
+				" ?" println()\
+				reset()\
+			]\
+		]\
+	]\
+;\
+\
+\
+\
+\
+\
+\
+// -- ForthTry\
 \
 : msg() ( args -- ? )\
 	\{ msg \}	// compiles into this\
@@ -59,36 +136,6 @@ POINTER VARIABLE token\
 0\
 32\
 256\
-\
-tib set: 0\
-token set: tib\
-state set: 0\
-\
-: MAX_INPUT_LENGTH 255 CONSTANT ;\
-: nextToken() token set: ((token @) + (token @ strLength())) ;\
-: readTokens() \
-	tib accept: MAX_INPUT_LENGTH\
-	tib tokenize: 32\
-	token set: tib ;\
-: commandLineInterp\
-	[ true ] while: [\
-		[ token @ strLength() == 0 ] if: [\
-			readTokens()\
-		]\
-		[ token @ find() ] if: [\
-			nextToken()	\
-			evaluate()\
-		] else: [\
-			[ parseNumber() ] if: [\
-				nextToken()\
-			] else: [\
-				token @ print() \
-				" ?" println()\
-				reset()\
-			]\
-		]\
-	]\
-;\
 \
 \
 : interpret\
